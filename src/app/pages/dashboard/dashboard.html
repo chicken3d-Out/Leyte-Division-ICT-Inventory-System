@@ -1,0 +1,71 @@
+<mat-drawer-container class="main-container">
+    <mat-drawer class="sidenav" #drawer mode="side">
+        <div class="side-content">
+            <div class="contentHeader">
+                <div class="bar"></div>
+                <div class="header">
+                    <div style="display:flex; gap:7px;">
+                        <div><mat-icon>inventory</mat-icon></div>
+                        <div>ICT Inventory</div>
+                    </div>
+                </div>
+            </div>
+            <a class="content" routerLink="/statistics" routerLinkActive="active-section">
+                <div class="icon-section">
+                    <div><mat-icon>analytics</mat-icon></div>
+                    <div>Statistics</div>
+                </div> 
+            </a>
+            <a class="content" routerLink="/inventory" routerLinkActive="active-section">
+                <div class="icon-section">
+                    <div><mat-icon>looks_two</mat-icon></div>
+                    <div>Inventory</div>
+                </div>
+            </a>
+            <a class="content" routerLink="/intercon" routerLinkActive="active-section">
+                <div class="icon-section">
+                    <div><mat-icon>vaccines</mat-icon></div>
+                    <div>Internet Connectivity</div>
+                </div>
+            </a>
+            <a class="content" routerLink="/resources" routerLinkActive="active-section">
+                <div class="icon-section">
+                    <div><mat-icon>local_hospital</mat-icon></div>
+                    <div>Resources</div>
+                </div>
+            </a>
+            <a class="content" routerLink="/profile" routerLinkActive="active-section">
+                <div class="icon-section">
+                    <div><mat-icon>local_hospital</mat-icon></div>
+                    <div>Profile</div>
+                </div>
+            </a>
+        </div>
+    </mat-drawer>
+    <mat-toolbar class="toolbar">
+        <div>
+            <button type="button" mat-button (click)="drawer.toggle()">
+                <mat-icon class="ham">view_headline</mat-icon>
+            </button>  
+            <span>Department of Education - Leyte Division ICT Inventory </span>
+        </div>
+        <div>
+
+        </div>
+        <div class="user-icon">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon style="color: black;">account_circle</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+                <mat-icon>dialpad</mat-icon>
+                <span>Redial</span>
+            </button>
+            </mat-menu>
+        </div>
+        
+    </mat-toolbar>
+    <div class="contents">
+        <router-outlet></router-outlet>
+    </div>
+</mat-drawer-container>
