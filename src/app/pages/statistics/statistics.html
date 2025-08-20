@@ -1,20 +1,97 @@
-<mat-card class="example-card" appearance="outlined">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Shiba Inu</mat-card-title>
-    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-  <mat-card-content>
-    <p>
-      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-      bred for hunting.
-    </p>
-    <p>statistics works!</p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button matButton>LIKE</button>
-    <button matButton>SHARE</button>
-  </mat-card-actions>
-</mat-card>
+<div class="main">
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Shiba Inu</mat-card-title>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header>
+    
+    <!-- <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+    <div style="display: block;">
+      <canvas baseChart
+        [data]="chartData1"
+        [options]="chartOptions1"
+        [type]="'bar'">
+      </canvas>
+    </div>
+
+    <mat-card-content>
+      <p>
+        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+        bred for hunting.
+      </p>
+      <p>statistics works!</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button matButton>LIKE</button>
+      <button matButton>SHARE</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Second Chart -->
+
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Shiba Inu</mat-card-title>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header>
+    
+    <!-- <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+    <div style="display: block; width:400px; height:300px; display: flex; justify-content: center;">
+      <canvas baseChart
+        [data]="chartData2"
+        [options]="chartOptions2"
+        [type]="'doughnut'">
+      </canvas>
+    </div>
+
+    <mat-card-content>
+      <p>
+        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+        bred for hunting.
+      </p>
+      <p>statistics works!</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button matButton>LIKE</button>
+      <button matButton>SHARE</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Third Chart -->
+
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Shiba Inu</mat-card-title>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header>
+    
+    <!-- <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+    <div style="display: block;">
+      <canvas baseChart
+        [data]="chartData1"
+        [options]="chartOptions1"
+        [type]="'bar'">
+      </canvas>
+    </div>
+
+    <mat-card-content>
+      <p>
+        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+        bred for hunting.
+      </p>
+      <p>statistics works!</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button matButton>LIKE</button>
+      <button matButton>SHARE</button>
+    </mat-card-actions>
+  </mat-card>
+
+</div>
+

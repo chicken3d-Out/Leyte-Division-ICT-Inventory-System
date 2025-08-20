@@ -36,18 +36,20 @@ a {
       grid-template-rows: 100px repeat(5, 50px);
   }
   .sidenav .side-content .contentHeader{
-    background-color: #eeee;
+    background-color: whitesmoke;
     /* border-bottom: 1px solid black; */
     display: flex;
     gap: 10px;
 
     border-bottom: .5px solid #006837;
     
+    
   }
   .sidenav .side-content .contentHeader .header {
       
       color: #ffff;
-      font-size: .9rem;
+      font-size: 1rem;
+      font-weight: 500;
       padding: 0 0;
 
       display: flex;
@@ -84,7 +86,7 @@ a {
     gap: 5px;
   }
   .sidenav .side-content .content .icon-section mat-icon {
-    color:#475C7A;
+    color:#006837;
 
   }
   .sidenav .side-content .content {
@@ -142,7 +144,7 @@ a {
   /* Content Container */
   .contents {
     padding: 10px 40px;
-    width: 100%;
-    height: calc(100vh - 66px);
+    /* width: 100%;
+    height: calc(100vh - 66px); */
 
 }

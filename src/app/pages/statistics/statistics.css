@@ -1,8 +1,16 @@
+
+.main {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
 .example-card {
   max-width: 400px;
 }
 
 .example-header-image {
-  background-image: url('https://material.angular.dev/assets/img/examples/shiba1.jpg');
+  background-image: url('../assests/logo.png');
   background-size: cover;
 }
