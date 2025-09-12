@@ -1,0 +1,21 @@
+.main {
+    width: 100%;
+    /* height: calc(100vh - 90px); */
+
+    height: 100%;
+
+    padding: 10px 20px;
+
+}
+.main .form-grid {
+    display: grid;
+    grid-auto-flow: column;
+}
+/* .main table {
+  width: 100%;
+  margin-top: 1rem;
+} */
+.main table th {
+    background-color: #006837;
+    color: white;
+}

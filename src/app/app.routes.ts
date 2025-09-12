@@ -12,7 +12,9 @@ export const routes: Routes = [
         { path: 'statistics', component: Statistics},
         { path: 'intercon', component: Internetcon},
         { path: 'inventory', component: Inventory},
+        { path: 'inventory/:id', component: Inventory},
         { path: 'profile', component: Profile},
         { path: 'resources', component: Resources},
+        { path: '#targetDiv', component: Inventory},
     ]},
 ];
