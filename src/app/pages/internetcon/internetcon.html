@@ -1,1 +1,181 @@
-<p>internetcon works!</p>
+<mat-card style="padding: 15px;" appearance="outlined">
+    <h2>Internet Connectivity</h2>
+    <mat-horizontal-stepper [linear]="false" #stepper>
+        <mat-step [stepControl]="internetForm">
+            <form [formGroup]="internetForm">
+            <ng-template matStepLabel>Internet Connectivity</ng-template>
+
+            <!-- Q1: Are there internet service providers in the area? -->
+            <div class="question" style="margin-top: 5px;">
+                <label>1. Are there internet service providers in the area?</label>
+                <mat-radio-group formControlName="has_isp" class="mt-1">
+                <mat-radio-button value="yes">Yes</mat-radio-button>
+                <mat-radio-button value="no">No</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <!-- If Yes: providers (checkboxes + other text) -->
+            <div *ngIf="internetForm.get('has_isp')?.value === 'yes'" class="providers mt-2">
+                <label>If Yes, check the appropriate provider/s:</label>
+                <div class="providers-grid">
+                <mat-checkbox formControlName="globe">GLOBE</mat-checkbox>
+                <mat-checkbox formControlName="smart">SMART</mat-checkbox>
+                <mat-checkbox formControlName="pldt">PLDT</mat-checkbox>
+                <mat-checkbox formControlName="skycable">SKYCABLE</mat-checkbox>
+                <mat-checkbox formControlName="converge">CONVERGE</mat-checkbox>
+                <mat-checkbox formControlName="starlink">STARLINK</mat-checkbox>
+                <mat-checkbox formControlName="eastern_comm">EASTERN COMMUNICATIONS</mat-checkbox>
+                <mat-checkbox formControlName="dito">DITO TELECOMMUNITY</mat-checkbox>
+
+                <div class="other-provider">
+                    <mat-checkbox formControlName="others_checked">Others</mat-checkbox>
+                    <mat-form-field *ngIf="internetForm.get('others_checked')?.value" appearance="outline">
+                    <mat-label>Specify other provider</mat-label>
+                    <input matInput formControlName="others_provider" />
+                    </mat-form-field>
+                </div>
+                </div>
+            </div>
+
+            <mat-divider class="my-3"></mat-divider>
+
+            <!-- Q2: Does the school subscribe? -->
+            <div style="margin-top: 10px;">
+                <label>2. Does the school subscribe to any internet service provider/s?</label>
+                <mat-radio-group formControlName="school_subscribe" class="mt-1">
+                <mat-radio-button value="yes">Yes</mat-radio-button>
+                <mat-radio-button value="no">No</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <!-- If subscribe: purpose checkboxes -->
+            <div *ngIf="internetForm.get('school_subscribe')?.value === 'yes'" class="mt-2">
+                <label>If Yes, tick the purpose:</label>
+                <div>
+                <mat-checkbox formControlName="purpose_admin">For administrative use</mat-checkbox>
+                <mat-checkbox formControlName="purpose_classroom">For classroom instruction use</mat-checkbox>
+                <mat-checkbox formControlName="purpose_both">For both administrative and classroom instruction use</mat-checkbox>
+                </div>
+            </div>
+
+            <!-- If not subscribe: reason text -->
+            <div *ngIf="internetForm.get('school_subscribe')?.value === 'no'" class="mt-2">
+                <mat-form-field appearance="outline" style="width:520px;">
+                <mat-label>If No, what prevents the school from subscribing?</mat-label>
+                <input matInput formControlName="no_subscribe_reason">
+                </mat-form-field>
+            </div>
+
+            <mat-divider class="my-3"></mat-divider>
+
+            <!-- Q3: Coverage Areas -->
+            <div style="margin-top: 10px;">
+                <label>3. What is the coverage area of your internet subscription? (Check all applicable)</label>
+                <div class="coverage-grid mt-1">
+                <mat-checkbox formControlName="coverage_school_wide">School-wide</mat-checkbox>
+                <mat-checkbox formControlName="coverage_faculty">Faculty area</mat-checkbox>
+                <mat-checkbox formControlName="coverage_principal_office">Principal's office</mat-checkbox>
+                <mat-checkbox formControlName="coverage_elem_area">Elementary School Area</mat-checkbox>
+                <mat-checkbox formControlName="coverage_jhs_area">Junior High School (JHS) Area</mat-checkbox>
+                <mat-checkbox formControlName="coverage_shs_area">Senior High School (SHS) Area</mat-checkbox>
+                <mat-checkbox formControlName="coverage_ict_lab">ICT Room/Laboratory</mat-checkbox>
+                <mat-checkbox formControlName="coverage_library">Library</mat-checkbox>
+
+                <div class="coverage-other">
+                    <mat-checkbox formControlName="coverage_other_checked">Other area/s</mat-checkbox>
+                    <mat-form-field *ngIf="internetForm.get('coverage_other_checked')?.value" appearance="outline">
+                    <mat-label>Specify other areas</mat-label>
+                    <input matInput formControlName="coverage_other" />
+                    </mat-form-field>
+                </div>
+                </div>
+            </div>
+
+            <mat-divider class="my-3"></mat-divider>
+
+            <!-- Q4: Number of rooms -->
+            <div style="margin-top: 10px;">
+                <label>4. How many rooms were utilizing the school internet service:</label>
+                <div class="rooms-row mt-1" style="margin-top: 12px; display: flex; column-gap: 15px;">
+                <mat-form-field appearance="outline" style="width: 250px;">
+                    <mat-label>a. For administrative use</mat-label>
+                    <input matInput type="number" formControlName="rooms_admin" min="0" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" style="width: 250px;">
+                    <mat-label>b. For classroom instruction use</mat-label>
+                    <input matInput type="number" formControlName="rooms_classroom" min="0" />
+                </mat-form-field>
+                </div>
+            </div>
+
+            <mat-divider class="my-3"></mat-divider>
+
+            <!-- Q5: DICT Free Wifi -->
+            <div>
+                <label>5. Are you a recipient of DICT Free Wifi?</label>
+                <mat-radio-group formControlName="dict_free_wifi" class="mt-1">
+                <mat-radio-button value="yes">Yes</mat-radio-button>
+                <mat-radio-button value="no">No</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <div class="actions mt-4">
+                <button style="background-color: #006837; color: whitesmoke;" mat-raised-button color="primary" (click)="saveStep1();" [disabled]="internetForm.invalid">
+                Save
+                </button>
+            </div>
+            </form>
+        </mat-step>
+        
+
+        <!-- Step 2: ISP Details -->
+        <mat-step [stepControl]="ispForm">
+            <form [formGroup]="ispForm">
+            <ng-template matStepLabel>Internet Service Provider</ng-template>
+
+            <mat-form-field style="margin-top: 20px;">
+                <mat-label>Type of Connection</mat-label>
+                <input matInput formControlName="connectionType" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Speed</mat-label>
+                <input matInput formControlName="speed" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Monthly Cost</mat-label>
+                <input matInput formControlName="monthlyCost" />
+            </mat-form-field>
+
+            <button style="background-color: #006837; color: whitesmoke;" mat-raised-button color="primary"
+                    (click)="saveStep2();">
+                Save
+            </button>
+            </form>
+        </mat-step>
+
+        <!-- Step 3: Cellular Service -->
+        <mat-step [stepControl]="cellularForm">
+            <form [formGroup]="cellularForm">
+            <ng-template matStepLabel>Cellular Service</ng-template>
+
+            <mat-form-field style="margin-top: 20px;">
+                <mat-label>Cellular Provider</mat-label>
+                <input matInput formControlName="provider" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Monthly Cost</mat-label>
+                <input matInput formControlName="monthlyCost" />
+            </mat-form-field>
+
+            <button style="background-color: #006837; color: whitesmoke;" mat-raised-button color="accent" (click)="saveStep3()">
+                Save
+            </button>
+            </form>
+        </mat-step>
+    </mat-horizontal-stepper>
+
+</mat-card>

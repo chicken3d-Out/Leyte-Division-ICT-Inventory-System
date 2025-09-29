@@ -1,1 +1,102 @@
-<p>profile works!</p>
+<div class="form-wrapper">
+  <mat-card appearance="outlined">
+    <h2>School Profile</h2>
+
+    <form class="main-column" [formGroup]="schoolForm" (ngSubmit)="onSubmit(schoolForm.value)">
+      <div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Username</mat-label>
+          <input type="text" matInput formControlName="username">
+          <mat-error *ngIf="username && username.touched">
+              Serial No. is <strong>Invalid</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password">
+          <mat-error *ngIf="password && password.touched">
+            Minimum <strong>6 characters</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>School ID</mat-label>
+          <input type="text" matInput formControlName="school_id">
+          <mat-error *ngIf="school_id && school_id.touched">
+            School ID is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>School Name</mat-label>
+          <input type="text" matInput formControlName="school_name">
+          <mat-error *ngIf="school_name && school_name.touched">
+            School Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>School Head</mat-label>
+          <input type="text" matInput formControlName="school_head">
+          <mat-error *ngIf="school_head && school_head.touched">
+            School Head is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>ICT Coordinator</mat-label>
+          <input type="text" matInput formControlName="ict_coordinator">
+        </mat-form-field>
+
+      </div>
+      <!-- Second Column -->
+      <div>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Area</mat-label>
+          <input type="text" matInput formControlName="area">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>District</mat-label>
+          <input type="text" matInput formControlName="district">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Number of Teachers</mat-label>
+          <input matInput type="text" formControlName="number_of_teachers">
+          <mat-error *ngIf="number_of_teachers && number_of_teachers.touched">
+            Enter a <strong>valid number</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Number of Non-Teaching Personnel</mat-label>
+          <input matInput type="text" formControlName="number_of_non_teaching_personnel">
+          <mat-error *ngIf="number_of_non_teaching_personnel && number_of_non_teaching_personnel.touched">
+            Enter a <strong>valid number</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- File input -->
+
+        <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" hidden>
+        <button style="background-color:#006837; color: whitesmoke;" mat-raised-button color="accent" type="button" (click)="fileInput.click()">
+          Upload School Logo<mat-icon>upload</mat-icon>
+        </button>
+
+        
+    
+        <div *ngIf="previewUrl">
+          <p>Preview:</p>
+          <img [src]="previewUrl" alt="Preview" width="70" height="70">
+        </div>
+
+        <button style="margin-top: 12px; background-color:#006837; color: whitesmoke;" mat-raised-button color="primary" type="submit" class="full-width">
+          Update School Details
+        </button>
+      </div>
+
+    </form>
+  </mat-card>
+</div>

@@ -28,42 +28,48 @@
                     <div>Internet Connectivity</div>
                 </div>
             </a>
-            <a class="content" routerLink="/resources" routerLinkActive="active-section">
-                <div class="icon-section">
-                    <div><mat-icon>local_hospital</mat-icon></div>
-                    <div>Resources</div>
-                </div>
-            </a>
             <a class="content" routerLink="/profile" routerLinkActive="active-section">
                 <div class="icon-section">
                     <div><mat-icon>local_hospital</mat-icon></div>
-                    <div>Profile</div>
+                    <div>School Profile</div>
                 </div>
             </a>
         </div>
     </mat-drawer>
     <mat-toolbar class="toolbar">
-        <div>
+        <div style="display: flex; column-gap: 10px;">
             <button type="button" mat-button (click)="drawer.toggle()">
                 <mat-icon class="ham">view_headline</mat-icon>
-            </button>  
-            <span>Department of Education - Leyte Division ICT Inventory </span>
+            </button>
+            <img [src]="logoUrl" alt="" height="40" width="40">
+            <span style="font-weight: 400; font-size: 1.2rem; display: flex; flex-direction: column; justify-content: center;"><div>Department of Education - Leyte Division ICT Inventory </div></span>
+            
         </div>
         <div>
 
         </div>
         <div class="user-icon">
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-            <mat-icon style="color: black;">account_circle</mat-icon>
-            </button>
+            <div style="display: flex;">
+                <div style="font-size: .9rem; display: flex; place-items: center; color: whitesmoke; font-weight: 400;">{{schoolName}}</div>
+                <button (click)="update()" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon style="color: black;">account_circle</mat-icon>
+                </button>
+            </div>
             <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-                <mat-icon>dialpad</mat-icon>
-                <span>Redial</span>
-            </button>
+                <mat-card style="margin: 0px 8px;" class="example-card" appearance="outlined">
+                    <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                        <img style="border-radius: 50%; border: 3px solid #ccc; background-size: cover; background-position: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" [src]="previewUrl" alt="School Logo" width="55" height="55"/><br>
+                        <mat-card-header>{{schoolName}}</mat-card-header>
+                    </mat-card-header>
+                        <mat-card-title style="display: flex; justify-content: center; font-weight: bold; font-size: 1rem;">School ID: {{schoolID}}</mat-card-title>
+
+                        <button style="background-color: rgb(25, 41, 69); color:whitesmoke; border-top: 1px solid black; margin-top: 5px; font-family: Arial Narrow; font-weight: bold; padding: 5px; font-size: 1rem; cursor: pointer;">Sign Out 😧</button>
+                </mat-card>
+                
             </mat-menu>
         </div>
-        
+
     </mat-toolbar>
     <div class="contents">
         <router-outlet></router-outlet>

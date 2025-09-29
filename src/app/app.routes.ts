@@ -4,7 +4,7 @@ import { Statistics } from './pages/statistics/statistics';
 import { Internetcon } from './pages/internetcon/internetcon';
 import { Inventory } from './pages/inventory/inventory';
 import { Profile } from './pages/profile/profile';
-import { Resources } from './pages/resources/resources';
+import { Login } from './pages/login/login';
 
 
 export const routes: Routes = [
@@ -14,7 +14,6 @@ export const routes: Routes = [
         { path: 'inventory', component: Inventory},
         { path: 'inventory/:id', component: Inventory},
         { path: 'profile', component: Profile},
-        { path: 'resources', component: Resources},
-        { path: '#targetDiv', component: Inventory},
+        // { path: 'login', component: Login},
     ]},
-];
+    { path: 'login', component: Login}]

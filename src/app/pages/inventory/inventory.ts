@@ -44,6 +44,8 @@ export class Inventory implements AfterViewInit {
   sourcef: string[] = ['DCP', 'Non-DCP', 'SEF','PTA','Others'];
   statusf: string[] = ['Functional', 'For Repair', 'For Condemn'];
 
+  schoolID: any;
+
 
   displayedColumns: string[] = ['equipment', 'serialnum', 'owner', 'status', 'batch', 'fundsource', 'remarks','dateR', 'created_at', 'action'];
   dataSource = new MatTableDataSource<any>();
@@ -160,22 +162,23 @@ export class Inventory implements AfterViewInit {
 
   onSubmit(data: any){
 
-    // const insertEquip = {
-    //   equipment: data.equipment,
-    //   serialnum: data.serialnum,
-    //   owner: data.owner,
-    //   status: data.status,
-    //   batch: data.batch,
-    //   fundsource: data.fundsource,
-    //   remarks: data.remarks,
+    const insertEquip = {
+      equipment: data.equipment,
+      serialnum: data.serialnum,
+      owner: data.owner,
+      status: data.status,
+      batch: data.batch,
+      fundsource: data.fundsource,
+      remarks: data.remarks,
+      dateR: data.dateR,
+      station_id : String(this.schoolID = localStorage.getItem('schoolId'))
       
-    // };
-    // console.log(insertEquip);
+    };
 
-    
-    console.log(data);
+    console.log(insertEquip);
 
-      this.equipment.addEquipment(data).subscribe(response => {
+
+      this.equipment.addEquipment(insertEquip).subscribe(response => {
             console.log("Server response:", response);
 
             this.snackBar.open('Data inserted successfully!', 'Close', {
@@ -207,7 +210,8 @@ export class Inventory implements AfterViewInit {
       owner: data.owner,
       status: data.status,
       dateR: data.dateR,
-      remarks: data.remarks
+      remarks: data.remarks,
+
     }
 
     console.log(equipData);

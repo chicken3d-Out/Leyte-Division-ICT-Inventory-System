@@ -23,7 +23,7 @@ export class Statistics {
     chartData1: ChartData<'bar'> = {
       labels: ['Laptop', 'Desktop', 'TV', 'Printer'],
       datasets: [
-        { label: 'Equipments', data: [65, 59, 80, 81], backgroundColor: 'darkblue' },
+        { label: 'Equipments', data: [65, 59, 80, 81], backgroundColor: ['#20784f','#1b6442','#3ca075','#79d6ae'] },
       ],
     };
 
@@ -35,7 +35,7 @@ export class Statistics {
     chartData2: ChartData<'doughnut'> = {
       labels: ['Functional', 'Non-Functional', 'For Condemn'],
       datasets: [
-        { label: 'Status', data: [120, 150, 90], backgroundColor: ['#FF6384','#36A2EB','#FFCE56'] },
+        { label: 'Status', data: [120, 150, 90], backgroundColor: ['#1b6442','#3ca075','#79d6ae'] },
         
       ],
     };
