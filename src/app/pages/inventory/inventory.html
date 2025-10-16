@@ -10,13 +10,13 @@
                 <div class="form-container">
                     <div class="form-field">
                         <div class="form-group">
-                            <label for="equipment">Type of Equipment</label>
+                            <label for="equip">Type of Equipment</label>
                             <div class="field">
                                 <mat-form-field appearance="outline">
                                     <mat-label>Type of Equipment</mat-label>
-                                     <input type="text" matInput formControlName="equipment" [matAutocomplete]="autoEquip">
+                                     <input type="text" matInput formControlName="equip" [matAutocomplete]="autoEquip">
                                      <mat-autocomplete #autoEquip="matAutocomplete">
-                                    <mat-option *ngFor="let equip of equipments" [value]="equip">{{equip}}</mat-option>
+                                    <mat-option *ngFor="let equips of equipments" [value]="equips">{{equips}}</mat-option>
                                     </mat-autocomplete>
                                     <mat-error *ngIf="equip && equip.invalid && equip.touched">
                                         Type of Equipment is <strong>Invalid</strong>
@@ -74,13 +74,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="owner">Owner</label>
+                            <label for="owner">Assigned To</label>
                             <div class="field">
                                 <mat-form-field appearance="outline">
-                                    <mat-label>Owner</mat-label>
+                                    <mat-label>Assigned To</mat-label>
                                     <input type="text" matInput formControlName="owner">
                                     <mat-error *ngIf="owner && owner.invalid && owner.touched">
-                                        Owner is <strong>Invalid</strong>
+                                        Assigned To is <strong>Invalid</strong>
                                     </mat-error>
                                 </mat-form-field>
                             </div>
@@ -127,13 +127,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="remarks">Remarks</label>
+                        <label for="remarks">Purpose</label>
                         <div class="field">
                             <mat-form-field appearance="outline">
-                                <mat-label>Remarks</mat-label>
-                                <input type="text" matInput formControlName="remarks">
+                                <mat-label>Purpose</mat-label>
+                                <input type="text" matInput formControlName="remarks" [matAutocomplete]="autoPurposeOf">
+                                <mat-autocomplete #autoPurposeOf="matAutocomplete">
+                                    <mat-option *ngFor="let pur of purposeOf" [value]="pur">{{pur}}</mat-option>
+                                </mat-autocomplete>
                                 <mat-error *ngIf="remarks && remarks.invalid && remarks.touched">
-                                    Remarks is <strong>Invalid</strong>
+                                    Purpose <strong>Invalid</strong>
                                 </mat-error>
                             </mat-form-field>
                          </div>
@@ -163,7 +166,7 @@
         <!-- ID Column -->
         <ng-container matColumnDef="equipment">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Equipment </th>
-            <td style="color: #006837; font-weight: bold;" mat-cell *matCellDef="let element">{{element.equipment}} </td>
+            <td style="color: #006837; font-weight: bold;" mat-cell *matCellDef="let element">{{element.equip}} </td>
         </ng-container>
 
         <!-- Name Column -->
@@ -174,7 +177,7 @@
 
         <!-- Age Column -->
         <ng-container matColumnDef="owner">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Owner </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned To </th>
             <td mat-cell *matCellDef="let element"> {{element.owner}} </td>
         </ng-container>
 
@@ -198,7 +201,7 @@
 
         <!-- Age Column -->
         <ng-container matColumnDef="remarks">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Remarks </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Purpose </th>
             <td mat-cell *matCellDef="let element"> {{element.remarks}} </td>
         </ng-container>
 
@@ -219,7 +222,7 @@
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let element"> <div style="display: flex; column-gap: 14px;">
                                                         <a href="#" (click)="scrollTo('targetDiv', $event)"> <div (click)="onEdit(element.id)" style="color:darkblue;" title="Edit"><mat-icon color="primary">edit</mat-icon></div></a>
-                                                        <div (click)="deleteConfirm(element.id)" style="color: red;" title="Delete"><mat-icon color="warn">delete</mat-icon></div>
+                                                        <div (click)="deleteConfirm(element.id)" style="color: red; cursor: pointer;" title="Delete"><mat-icon color="warn">delete</mat-icon></div>
                                                     </div>
             </td>
           </ng-container>
@@ -231,27 +234,9 @@
         </table>
 
         <!-- Pagination -->
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
 
     </mat-card>
-    <!-- <mat-accordion>
-        <mat-expansion-panel hideToggle>
-            <mat-expansion-panel-header>
-            <mat-panel-title> This is the expansion title </mat-panel-title>
-            <mat-panel-description> This is a summary of the content </mat-panel-description>
-            </mat-expansion-panel-header>
-            <p>This is the primary content of the panel.</p>
-        </mat-expansion-panel>
-        <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
-            <mat-expansion-panel-header>
-            <mat-panel-title> Self aware panel </mat-panel-title>
-            <mat-panel-description>
-                Currently I am {{panelOpenState() ? 'open' : 'closed'}}
-            </mat-panel-description>
-            </mat-expansion-panel-header>
-            <p>I'm visible because I am open</p>
-        </mat-expansion-panel>
-    </mat-accordion> -->
 </mat-card>
 
 

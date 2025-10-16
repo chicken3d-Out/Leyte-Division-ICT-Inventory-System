@@ -11,11 +11,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { Schoolservice } from '../../services/schoolservice';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmDialog } from '../../confirm-dialog/confirm-dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { MatOption } from '@angular/material/core';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatCardModule, MatIconModule
+  imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatCardModule, MatIconModule,
+    MatOption, MatAutocompleteModule
   ],
   templateUrl: './profile.html',
   styleUrl: './profile.css'
@@ -31,8 +36,50 @@ export class Profile implements AfterViewInit {
   
 
   constructor(private fb: FormBuilder, private schoolService: Schoolservice, private route: ActivatedRoute, private snackBar: MatSnackBar
-    , private router: Router
+    , private router: Router, private dialog: MatDialog
   ) {}
+
+  areas = ['Area 1', 'Area 2-A','Area 2-B', 'Area 3', 'Area 4','Area 5-A', 'Area 5-B'];
+  districts = ['ABUYOG EAST', 'ABUYOG NORTH', 'ABUYOG SOUTH', 'ABUYOG WEST',
+'ALANGALANG I', 'ALANGALANG II', 'ALANGALANG III',
+'ALBUERA NORTH', 'ALBUERA SOUTH',
+'BABATNGON I', 'BABATNGON II',
+'BARUGO I', 'BARUGO II',
+'BATO EAST', 'BATO WEST',
+'BURAUEN EAST', 'BURAUEN NORTH', 'BURAUEN SOUTH',
+'CALUBIAN NORTH', 'CALUBIAN SOUTH',
+'CAPOOCAN I', 'CAPOOCAN II',
+'CARIGARA I', 'CARIGARA II', 'CARIGARA III',
+'DAGAMI NORTH', 'DAGAMI SOUTH',
+'DULAG NORTH', 'DULAG SOUTH', 'DULAG WEST',
+'HILONGOS EAST', 'HILONGOS NORTH', 'HILONGOS SOUTH',
+'HINDANG',
+'INOPACAN',
+'ISABEL I', 'ISABEL II',
+'JARO I', 'JARO II', 'JARO III',
+'JAVIER I', 'JAVIER II',
+'JULITA',
+'KANANGA I', 'KANANGA II', 'KANANGA III',
+'LA PAZ I', 'LA PAZ II',
+'LEYTE I', 'LEYTE II',
+'MACARTHUR I', 'MACARTHUR II',
+'MAHAPLAG I', 'MAHAPLAG II',
+'MATALOM NORTH', 'MATALOM SOUTH',
+'MATAG-OB',
+'MAYORGA',
+'MERIDA',
+'PALOMPON EAST', 'PALOMPON NORTH', 'PALOMPON SOUTH',
+'PALO I', 'PALO II', 'PALO III',
+'PASTRANA',
+'SAN ISIDRO I', 'SAN ISIDRO II',
+'SAN MIGUEL',
+'STA. FE',
+'TABANGO NORTH', 'TABANGO SOUTH',
+'TABONTABON',
+'TANAUAN I', 'TANAUAN II', 'TANAUAN III',
+'TOLOSA',
+'TUNGA',
+'VILLABA NORTH', 'VILLABA SOUTH'];
 
 
   ngAfterViewInit(): void {
@@ -65,16 +112,16 @@ export class Profile implements AfterViewInit {
   }
 
   get username(){
-    return this.schoolForm.get('username');
+    return this.schoolForm.get('username')?.disable();
   }
   get password(){
-    return this.schoolForm.get('password');
+    return this.schoolForm.get('password')?.disable();
   }
   get school_id(){
-    return this.schoolForm.get('school_id');
+    return this.schoolForm.get('school_id')?.disable();
   }
   get school_name(){
-    return this.schoolForm.get('school_name');
+    return this.schoolForm.get('school_name')?.disable();
   }
   get school_head(){
     return this.schoolForm.get('school_head');
@@ -186,23 +233,28 @@ export class Profile implements AfterViewInit {
 
     console.log(formData)
 
-    this.schoolService.updateSchool(this.schoolID, formData).subscribe(res => {
-    console.log(res)
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+          width: '300px'
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.schoolService.updateSchool(this.schoolID, formData).subscribe(res => {
+            console.log(res)
 
 
-    this.snackBar.open('Profile updated successfully!', 'Close', {
-              duration: 4000,              // auto close after 3s
-              horizontalPosition: 'center', // 'start' | 'center' | 'end' | 'left' | 'right'
-              verticalPosition: 'bottom',      // 'top' | 'bottom'
+            this.snackBar.open('Profile updated successfully!', 'Close', {
+                      duration: 4000,              // auto close after 3s
+                      horizontalPosition: 'center', // 'start' | 'center' | 'end' | 'left' | 'right'
+                      verticalPosition: 'bottom',      // 'top' | 'bottom'
+                    });
+                    window.location.reload();
             });
 
-            
-
-            window.location.reload();
-            
-
-  });
-
+          }else {
+            console.log('❌ Save canceled');
+          }
+        })
   }
 
 }

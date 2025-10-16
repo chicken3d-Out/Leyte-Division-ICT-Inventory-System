@@ -1,0 +1,12 @@
+<mat-card appearance="outlined">
+    <div style="display: flex; justify-content: center; margin: 20px 5px 0px 5px; font-weight: bold; font-size: 1rem;">Confirm Delete</div>
+    <mat-dialog-content>
+    <p>Are you sure you want to delete this data?</p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+    <button style="color: black;" matButton="outlined" (click)="onCancel()">No</button>
+    <button matButton="outlined" style="background-color: rgb(255, 47, 0); color: whitesmoke;" (click)="onConfirm()">Yes</button>
+    </mat-dialog-actions>
+</mat-card>
+
+

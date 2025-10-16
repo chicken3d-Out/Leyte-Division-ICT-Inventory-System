@@ -5,10 +5,12 @@ import { Internetcon } from './pages/internetcon/internetcon';
 import { Inventory } from './pages/inventory/inventory';
 import { Profile } from './pages/profile/profile';
 import { Login } from './pages/login/login';
+import { authguardGuard } from './guard/authguard-guard';
 
 
 export const routes: Routes = [
-    {path: '', component: Dashboard, children:[
+    {path: '', component: Dashboard, canActivate: [authguardGuard], children:[
+        { path: '', redirectTo: 'statistics', pathMatch: 'full' },
         { path: 'statistics', component: Statistics},
         { path: 'intercon', component: Internetcon},
         { path: 'inventory', component: Inventory},

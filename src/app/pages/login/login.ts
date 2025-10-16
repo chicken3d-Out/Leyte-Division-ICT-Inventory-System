@@ -21,7 +21,7 @@ export class Login {
 
   username: string = '';
   password: string = '';
-  logoUrl = 'http://localhost/inventory-api/uploads/logo.png';
+  logoUrl = 'http://localhost/inventory-api/uploads/depedleytedivisionlogo10162025.png';
   
 
   login() {
@@ -31,8 +31,9 @@ export class Login {
           const schoolId = res.school_id;
 
           // Option A: Pass via route
-          this.router.navigate(['/inventory']);
+          this.router.navigate(['']);
           localStorage.setItem('schoolId', `${schoolId}`);
+          localStorage.setItem('watson', `${schoolId}`);
 
           this.snackBar.open('Login successfully!', 'Close', {
               duration: 4000,              // auto close after 3s

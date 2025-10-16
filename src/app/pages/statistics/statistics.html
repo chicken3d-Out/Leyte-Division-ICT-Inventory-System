@@ -1,97 +1,358 @@
-<div class="main">
-  <mat-card class="example-card" appearance="outlined">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    </mat-card-header>
-    
-    <!-- <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
-    <div style="display: block;">
-      <canvas baseChart
-        [data]="chartData1"
-        [options]="chartOptions1"
-        [type]="'bar'">
-      </canvas>
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+  <mat-tab label="{{schoolName}}"> 
+    <div class="main" style="margin-top: 15px;">
+      <div class="upper-stat" style="display: flex; flex-direction: row; justify-content: space-around; column-gap: 10px; margin-bottom: 10px;"> 
+        <mat-card appearance="outlined" class="card">
+          <mat-card-title>
+            Total Equipments
+          </mat-card-title>
+          <br>
+            <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; margin-left: 20px; font-size: 1.4rem; display: flex; justify-content: flex-start; column-gap: 9px;">
+              <div style="display: grid; place-items: center;">{{ functionalCount + repairCount + condemnCount +nonfunctionalCount}}</div> <mat-icon style="color: #006837;">devices</mat-icon>
+            </div>
+          </mat-card>
+        <mat-card appearance="outlined" class="card">
+          <mat-card-title>
+            Total Functional
+          </mat-card-title>
+          <br>
+          <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; margin-left: 20px; font-size: 1.4rem; display: flex; justify-content: flex-start; column-gap: 9px;">
+              <div style="display: grid; place-items: center;">{{ functionalCount}}</div> <mat-icon style="color: #006837;">monitor</mat-icon>
+            </div>
+        </mat-card>
+        <mat-card appearance="outlined" class="card">
+          <mat-card-title>
+            Total Non-Functional
+          </mat-card-title>
+          <br>
+          <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; margin-left: 20px; font-size: 1.4rem; display: flex; justify-content: flex-start; column-gap: 9px;">
+              <div style="display: grid; place-items: center;">{{ nonfunctionalCount}}</div> <mat-icon style="color: darkblue;">desktop_access_disabled</mat-icon>
+            </div>
+        </mat-card>
+        <mat-card appearance="outlined" class="card">
+          <mat-card-title>
+            Total For Repair
+          </mat-card-title>
+          <br>
+          <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; margin-left: 20px; font-size: 1.4rem; display: flex; justify-content: flex-start; column-gap: 9px;">
+              <div style="display: grid; place-items: center;">{{repairCount}}</div> <mat-icon style="color: orange;">construction</mat-icon>
+            </div>
+        </mat-card>
+        <mat-card appearance="outlined" class="card">
+          <mat-card-title>
+            Total For Disposal
+          </mat-card-title>
+          <br> 
+          <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; margin-left: 20px; font-size: 1.4rem; display: flex; justify-content: flex-start; column-gap: 9px;">
+              <div style="display: grid; place-items: center;">{{ condemnCount}}</div> <mat-icon style="color: red;">delete_forever</mat-icon>
+            </div>
+        </mat-card>
+        <!-- <div></div>
+        <div></div>
+        <div></div>
+        <div></div> -->
+      </div>
+      <mat-card appearance="outlined" style="margin-bottom: 10px; display: grid; grid-auto-flow: column; grid-template-columns: 1fr 1fr;">
+        <div style="display: grid; grid-auto-flow: column; grid-template-columns: 1fr 1fr;">
+          <mat-card-subtitle style="display: flex; place-items: center;">
+            Administrative Use<mat-icon style="color: #006837;;">group</mat-icon><div style="font-size: 1.5rem; font-family: 'Courier New', Courier, monospace; font-weight: bold;"> {{academicTotal}}</div>
+          </mat-card-subtitle>
+          <mat-card-subtitle style="display: flex; place-items: center;">
+            Academic Use<mat-icon style="color: #006837;">groups</mat-icon> <div style="font-size: 1.5rem; font-family: 'Courier New', Courier, monospace; font-weight: bold;"> {{administrativeTotal}}</div>
+          </mat-card-subtitle>
+
+
+        </div>
+        <div *ngIf="schoolID === 'DepedLeyteDivisionICT'" style="display: flex; justify-content: flex-end; column-gap: 7px;">
+          <mat-form-field appearance="outline">
+            <mat-label>School ID</mat-label>
+            <input type="text"
+              matInput
+              [formControl]="schoolIDControl"
+              placeholder="Enter School ID"
+            >
+
+            <mat-error *ngIf="schoolIDControl.hasError('notFound')">
+              School ID not found.
+            </mat-error>
+          </mat-form-field>
+          <button style="margin-top: 7px; background-color: #006837; color: whitesmoke;"
+            mat-raised-button
+            color="primary"
+            [disabled]="!schoolIDControl.valid"
+            (click)="onSubmit()"
+          >
+            Filter
+          </button>
+          
+        </div>
+
+
+      </mat-card>
+      <div class="stat">
+      
+        <mat-card class="example-card" appearance="outlined">
+          <mat-card-header style="margin-bottom: 15px;">
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title style="font-size: 1.1rem; font-weight: 600;">Statistics on Equipment Type</mat-card-title>
+            <mat-card-subtitle style="font-size: .8rem;">{{schoolName}}</mat-card-subtitle>
+          </mat-card-header>
+          
+          <!-- <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+          <div class="chart-container" style="width: 100%;">
+            <canvas
+              baseChart
+              [data]="chartData1"
+              [options]="chartOptions1"
+              [type]="'bar'"
+            ></canvas>
+          </div>
+
+          <mat-card-content>
+            <p>
+              Statistics on Equipment Type shows the total count of each type of equipment, such as computers, laptops, printers, and other devices.
+            </p>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Second Chart -->
+
+        <mat-card class="example-card" appearance="outlined">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title style="font-size: 1.1rem; font-weight: 600;">Statistics on DCP Batches</mat-card-title>
+            <mat-card-subtitle style="font-size: .8rem;">{{schoolName}}</mat-card-subtitle>
+          </mat-card-header>
+          
+          <!-- <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+          <div class="chart-container" style="width: 100%;">
+            <canvas
+              baseChart
+              [data]="chartData2"
+              [options]="chartOptions2"
+              [type]="'bar'"
+            ></canvas>
+          </div>
+
+          <mat-card-content>
+            <p>
+              DCP Batches display the distribution of equipment according to DepEd Computerization Program (DCP) batches, helping track which schools or stations received units from specific deployment phases.
+            </p>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Third Chart -->
+
+        <mat-card class="example-card" appearance="outlined">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title style="font-size: 1.1rem; font-weight: 600;">Statistics on Fund Source</mat-card-title>
+            <mat-card-subtitle style="font-size: .8rem;">{{schoolName}}</mat-card-subtitle>
+          </mat-card-header>
+          
+          <!-- <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+          <div class="chart-container" style="width: 100%;">
+            <canvas
+              baseChart
+              [data]="chartData3"
+              [options]="chartOptions3"
+              [type]="'bar'"
+            ></canvas>
+          </div>
+
+          <mat-card-content>
+            <p>
+              Fund Source shows the number of equipment based on their funding origin, such as DCP, school funds, or other government and private sources.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab [disabled]="schoolID !== 'DepedLeyteDivisionICT'" label="Schools Division of Leyte">
+    <div class="main" style="margin-top: 15px;">
+      <div class="upper-stat" style="display: flex; flex-direction: row; justify-content: space-around; column-gap: 10px; margin-bottom: 10px;"> 
+        <mat-card appearance="outlined" class="card">
+          <mat-card-title>
+            Total Equipments
+          </mat-card-title>
+          <br>
+            <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; margin-left: 20px; font-size: 1.4rem; display: flex; justify-content: flex-start; column-gap: 9px;">
+              <div style="display: grid; place-items: center;">{{ functionalCountAll + repairCountAll + condemnCountAll +nonfunctionalCountAll}}</div> <mat-icon style="color: #006837;">devices</mat-icon>
+            </div>
+          </mat-card>
+        <mat-card appearance="outlined" class="card">
+          <mat-card-title>
+            Total Functional
+          </mat-card-title>
+          <br>
+          <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; margin-left: 20px; font-size: 1.4rem; display: flex; justify-content: flex-start; column-gap: 9px;">
+              <div style="display: grid; place-items: center;">{{ functionalCountAll}}</div> <mat-icon style="color: #006837;">monitor</mat-icon>
+            </div>
+        </mat-card>
+        <mat-card appearance="outlined" class="card">
+          <mat-card-title>
+            Total Non-Functional
+          </mat-card-title>
+          <br>
+          <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; margin-left: 20px; font-size: 1.4rem; display: flex; justify-content: flex-start; column-gap: 9px;">
+              <div style="display: grid; place-items: center;">{{ nonfunctionalCountAll}}</div> <mat-icon style="color: darkblue;">desktop_access_disabled</mat-icon>
+            </div>
+        </mat-card>
+        <mat-card appearance="outlined" class="card">
+          <mat-card-title>
+            Total For Repair
+          </mat-card-title>
+          <br>
+          <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; margin-left: 20px; font-size: 1.4rem; display: flex; justify-content: flex-start; column-gap: 9px;">
+              <div style="display: grid; place-items: center;">{{repairCountAll}}</div> <mat-icon style="color: orange;">construction</mat-icon>
+            </div>
+        </mat-card>
+        <mat-card appearance="outlined" class="card">
+          <mat-card-title>
+            Total For Disposal
+          </mat-card-title>
+          <br> 
+          <div style="font-family: 'Courier New', Courier, monospace; font-weight: bold; margin-left: 20px; font-size: 1.4rem; display: flex; justify-content: flex-start; column-gap: 9px;">
+              <div style="display: grid; place-items: center;">{{ condemnCountAll}}</div> <mat-icon style="color: red;">delete_forever</mat-icon>
+            </div>
+        </mat-card>
+        <!-- <div></div>
+        <div></div>
+        <div></div>
+        <div></div> -->
+      </div>
+      <mat-card appearance="outlined" style="margin-bottom: 10px; display: grid; grid-auto-flow: column; grid-template-columns: 1fr 1fr;">
+        <div style="display: grid; grid-auto-flow: column; grid-template-columns: 1fr 1fr;">
+          <mat-card-subtitle style="display: flex; place-items: center;">
+            Administrative Use<mat-icon style="color: #006837;;">group</mat-icon><div style="font-size: 1.5rem; font-family: 'Courier New', Courier, monospace; font-weight: bold;"> {{academicTotalAll}}</div>
+          </mat-card-subtitle>
+          <mat-card-subtitle style="display: flex; place-items: center;">
+            Academic Use<mat-icon style="color: #006837;;">groups</mat-icon> <div style="font-size: 1.5rem; font-family: 'Courier New', Courier, monospace; font-weight: bold;"> {{administrativeTotalAll}}</div>
+          </mat-card-subtitle>
+
+
+        </div>
+        <div style="display: flex; justify-content: flex-end; column-gap: 7px;">
+          <div class="section">
+            <mat-radio-group [(ngModel)]="selectedGroup" (change)="onSelectGroup('area')">
+              <mat-radio-button value="area">Area </mat-radio-button>
+            </mat-radio-group>
+
+            <mat-form-field style="margin-left: 5px;" appearance="outline" class="dropdown">
+              <mat-label>Select Area</mat-label>
+              <mat-select
+                [disabled]="selectedGroup !== 'area'"
+                [(ngModel)]="selectedArea"
+                (selectionChange)="onSelectInput(selectedArea)"
+              >
+                <mat-option *ngFor="let area of areas" [value]="area">{{ area }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- RIGHT SIDE: BARUGO -->
+          <div class="section">
+            <mat-radio-group [(ngModel)]="selectedGroup" (change)="onSelectGroup('district')">
+              <mat-radio-button value="district">District</mat-radio-button>
+            </mat-radio-group>
+
+            <mat-form-field style="margin-left: 5px;" appearance="outline" class="dropdown">
+              <mat-label>Select District</mat-label>
+              <mat-select
+                [disabled]="selectedGroup !== 'district'"
+                [(ngModel)]="selectedDistrict"
+                (selectionChange)="onSelectInput(selectedDistrict)"
+              >
+                <mat-option *ngFor="let b of districts" [value]="b">{{ b }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </mat-card>
+      <div class="stat">
+      
+        <mat-card class="example-card" appearance="outlined">
+          <mat-card-header style="margin-bottom: 15px;">
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title style="font-size: 1.1rem; font-weight: 600;">Statistics on Equipment Type</mat-card-title>
+            <mat-card-subtitle style="font-size: 0.8rem;">Schools Division of Leyte</mat-card-subtitle>
+          </mat-card-header>
+          
+          <!-- <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+          <div class="chart-container" style="width: 100%;">
+            <canvas
+              baseChart
+              [data]="chartData4"
+              [options]="chartOptions4"
+              [type]="'bar'"
+            ></canvas>
+          </div>
+
+          <mat-card-content>
+            <p>
+              Statistics on Equipment Type shows the total count of each type of equipment, such as computers, laptops, printers, and other devices.
+            </p>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Second Chart -->
+
+        <mat-card class="example-card" appearance="outlined">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title style="font-size: 1.1rem; font-weight: 600;">Statistics on DCP Batches</mat-card-title>
+            <mat-card-subtitle style="font-size: 0.8rem;">Schools Division of Leyte</mat-card-subtitle>
+          </mat-card-header>
+          
+          <!-- <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+          <div class="chart-container" style="width: 100%;">
+            <canvas
+              baseChart
+              [data]="chartData5"
+              [options]="chartOptions5"
+              [type]="'bar'"
+            ></canvas>
+          </div>
+
+          <mat-card-content>
+            <p>
+              DCP Batches display the distribution of equipment according to DepEd Computerization Program (DCP) batches, helping track which schools or stations received units from specific deployment phases.
+            </p>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Third Chart -->
+
+        <mat-card class="example-card" appearance="outlined">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title style="font-size: 1.1rem; font-weight: 600;">Statistics on Fund Source</mat-card-title>
+            <mat-card-subtitle style="font-size: 0.8rem;">Schools Division of Leyte</mat-card-subtitle>
+          </mat-card-header>
+          
+          <!-- <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+          <div class="chart-container" style="width: 100%;">
+            <canvas
+              baseChart
+              [data]="chartData6"
+              [options]="chartOptions6"
+              [type]="'bar'"
+            ></canvas>
+          </div>
+
+          <mat-card-content>
+            <p>
+              Fund Source shows the number of equipment based on their funding origin, such as DCP, school funds, or other government and private sources.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
 
-    <mat-card-content>
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
-      </p>
-      <p>statistics works!</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button matButton>LIKE</button>
-      <button matButton>SHARE</button>
-    </mat-card-actions>
-  </mat-card>
+  </mat-tab>
 
-  <!-- Second Chart -->
+</mat-tab-group>
 
-  <mat-card class="example-card" appearance="outlined">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    </mat-card-header>
-    
-    <!-- <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
-    <div style="display: block; width:400px; height:300px; display: flex; justify-content: center;">
-      <canvas baseChart
-        [data]="chartData2"
-        [options]="chartOptions2"
-        [type]="'doughnut'">
-      </canvas>
-    </div>
-
-    <mat-card-content>
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
-      </p>
-      <p>statistics works!</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button matButton>LIKE</button>
-      <button matButton>SHARE</button>
-    </mat-card-actions>
-  </mat-card>
-
-  <!-- Third Chart -->
-
-  <mat-card class="example-card" appearance="outlined">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    </mat-card-header>
-    
-    <!-- <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
-    <div style="display: block;">
-      <canvas baseChart
-        [data]="chartData1"
-        [options]="chartOptions1"
-        [type]="'bar'">
-      </canvas>
-    </div>
-
-    <mat-card-content>
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
-      </p>
-      <p>statistics works!</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button matButton>LIKE</button>
-      <button matButton>SHARE</button>
-    </mat-card-actions>
-  </mat-card>
-
-</div>
 

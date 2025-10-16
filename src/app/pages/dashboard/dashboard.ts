@@ -4,7 +4,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
-import { RouterModule, Routes } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { MatCard, MatCardActions, MatCardHeader, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
 import { Schoolservice } from '../../services/schoolservice';
 
@@ -18,7 +18,7 @@ import { Schoolservice } from '../../services/schoolservice';
 })
 export class Dashboard implements OnInit {
 
-  constructor(private schoolService:Schoolservice){}
+  constructor(private schoolService:Schoolservice, private router:Router){}
 
   schoolID: any;
   previewUrl: any = null;
@@ -30,7 +30,13 @@ export class Dashboard implements OnInit {
     this.getschoolData();
   }
 
-  onSignOut(){}
+  onSignOut(){
+    localStorage.removeItem('watson'); // or localStorage.clear();
+    localStorage.removeItem('schoolId'); // or localStorage.clear();
+    this.router.navigate(['/login']);
+
+
+  }
 
   update(){
     this.getschoolData();

@@ -2,15 +2,43 @@
 .main {
   width: 100%;
 
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-rows: 120px auto 1fr;
+
+
+}
+
+.main mat-card {
+  padding: 15px;
+}
+.main .upper-stat .card{
+  /* width: 250px; */
+  width: 100%;
+}
+
+.main mat-card mat-card-title{
+  font-size: 1.1rem; 
+  font-weight: 600;
+}
+
+
+.main .stat{
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  column-gap: 20px;
+
 }
 .example-card {
+  /* width: 532px; */
   max-width: 400px;
+  
 }
 
 .example-header-image {
-  background-image: url('../assests/logo.png');
+  background-image: url('../assests/1.png');
   background-size: cover;
+  background-position: center;
+
 }

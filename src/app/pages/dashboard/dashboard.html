@@ -6,7 +6,7 @@
                 <div class="header">
                     <div style="display:flex; gap:7px;">
                         <div style="color:#20784f;"><mat-icon>inventory</mat-icon></div>
-                        <div>ICT Inventory</div>
+                        <div>Division ICT Inventory System</div>
                     </div>
                 </div>
             </div>
@@ -18,19 +18,19 @@
             </a>
             <a class="content" routerLink="/inventory" routerLinkActive="active-section">
                 <div class="icon-section">
-                    <div><mat-icon>looks_two</mat-icon></div>
+                    <div><mat-icon>warehouse</mat-icon></div>
                     <div>Inventory</div>
                 </div>
             </a>
             <a class="content" routerLink="/intercon" routerLinkActive="active-section">
                 <div class="icon-section">
-                    <div><mat-icon>vaccines</mat-icon></div>
+                    <div><mat-icon>wifi</mat-icon></div>
                     <div>Internet Connectivity</div>
                 </div>
             </a>
             <a class="content" routerLink="/profile" routerLinkActive="active-section">
                 <div class="icon-section">
-                    <div><mat-icon>local_hospital</mat-icon></div>
+                    <div><mat-icon>badge</mat-icon></div>
                     <div>School Profile</div>
                 </div>
             </a>
@@ -42,7 +42,7 @@
                 <mat-icon class="ham">view_headline</mat-icon>
             </button>
             <img [src]="logoUrl" alt="" height="40" width="40">
-            <span style="font-weight: 400; font-size: 1.2rem; display: flex; flex-direction: column; justify-content: center;"><div>Department of Education - Leyte Division ICT Inventory </div></span>
+            <span style="font-weight: 400; font-size: 1.2rem; display: flex; flex-direction: column; justify-content: center;"><div>Leyte -  Division ICT Inventory System </div></span>
             
         </div>
         <div>
@@ -64,7 +64,7 @@
                     </mat-card-header>
                         <mat-card-title style="display: flex; justify-content: center; font-weight: bold; font-size: 1rem;">School ID: {{schoolID}}</mat-card-title>
 
-                        <button style="background-color: rgb(25, 41, 69); color:whitesmoke; border-top: 1px solid black; margin-top: 5px; font-family: Arial Narrow; font-weight: bold; padding: 5px; font-size: 1rem; cursor: pointer;">Sign Out 😧</button>
+                        <button (click)="onSignOut()" style="background-color:rgb(11, 66, 124); color:whitesmoke; margin-top: 5px; font-family: Arial Narrow; font-weight: bold; padding: 5px; font-size: 1rem; cursor: pointer;">Sign Out 😧</button>
                 </mat-card>
                 
             </mat-menu>

@@ -7,15 +7,15 @@
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Username</mat-label>
           <input type="text" matInput formControlName="username">
-          <mat-error *ngIf="username && username.touched">
-              Serial No. is <strong>Invalid</strong>
+          <mat-error *ngIf="username">
+              Username is <strong>Invalid</strong>
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Password</mat-label>
           <input matInput type="password" formControlName="password">
-          <mat-error *ngIf="password && password.touched">
+          <mat-error *ngIf="password">
             Minimum <strong>6 characters</strong>
           </mat-error>
         </mat-form-field>
@@ -23,7 +23,7 @@
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>School ID</mat-label>
           <input type="text" matInput formControlName="school_id">
-          <mat-error *ngIf="school_id && school_id.touched">
+          <mat-error *ngIf="school_id">
             School ID is <strong>required</strong>
           </mat-error>
         </mat-form-field>
@@ -31,7 +31,7 @@
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>School Name</mat-label>
           <input type="text" matInput formControlName="school_name">
-          <mat-error *ngIf="school_name && school_name.touched">
+          <mat-error *ngIf="school_name">
             School Name is <strong>required</strong>
           </mat-error>
         </mat-form-field>
@@ -54,12 +54,18 @@
       <div>
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Area</mat-label>
-          <input type="text" matInput formControlName="area">
+          <input type="text" matInput formControlName="area" [matAutocomplete]="autoArea">
+          <mat-autocomplete #autoArea="matAutocomplete">
+            <mat-option *ngFor="let a of areas" [value]="a">{{a}}</mat-option>
+          </mat-autocomplete>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>District</mat-label>
-          <input type="text" matInput formControlName="district">
+          <input type="text" matInput formControlName="district" [matAutocomplete]="autoDistrict">
+          <mat-autocomplete #autoDistrict="matAutocomplete">
+            <mat-option *ngFor="let dis of districts" [value]="dis">{{dis}}</mat-option>
+          </mat-autocomplete>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">

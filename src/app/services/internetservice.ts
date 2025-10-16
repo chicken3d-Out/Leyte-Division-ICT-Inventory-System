@@ -23,12 +23,26 @@ export class Internetservice {
 
   // Step 2: Internet service provider
   saveInternetService(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/save_internet_service.php`, data);
+    return this.http.post(`${this.baseUrl}/insert_isp.php`, data);
   }
+  getInternetService(schoolId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/get_isp.php?school_id=${schoolId}`);
+  }
+  getISPById(id: number): Observable<any> {
+  return this.http.get<any>(`${this.baseUrl}/get_isp_byid.php?id=${id}`);
+}
+  updateISP(data: any): Observable<any> {
+  return this.http.post(`${this.baseUrl}/update-isp.php`, data);
+}
+deleteISP(id: number) {
+  return this.http.delete<any>(`${this.baseUrl}/isp-delete.php?id=${id}`);
+}
+
+
 
   // Step 3: Cellular service
-  saveCellularService(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/save_cellular_service.php`, data);
+  addCellularService(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/insert-cellular.php`, data);
   }
   
 }

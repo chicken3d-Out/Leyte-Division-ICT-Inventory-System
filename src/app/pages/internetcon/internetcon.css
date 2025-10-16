@@ -1,0 +1,38 @@
+::ng-deep .mat-dialog-content {
+  padding: 10px 20px !important;
+}
+::ng-deep .mat-horizontal-content-container {
+  padding: 0 !important;
+}
+.main {
+    width: 100%;
+    /* height: calc(100vh - 90px); */
+
+    height: 100%;
+
+}
+.main .form-grid {
+    display: grid;
+    grid-auto-flow: column;
+}
+.main-cellular .form-column{
+
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 50% auto;
+
+  }
+.main-cellular .form-column .forminput{
+  display: grid;
+  grid-auto-flow: row;
+}
+/* .main table {
+  width: 100%;
+  margin-top: 1rem;
+} */
+.main table th {
+    background-color: #006837;
+    color: white;
+
+    font-size: .8rem;
+}

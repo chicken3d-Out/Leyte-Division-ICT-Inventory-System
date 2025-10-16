@@ -19,8 +19,8 @@
 // Customize the entire app. Change :root to your selector if you want to scope the styles.
 :root {
   @include mat.stepper-overrides((
-    header-done-state-icon-background-color: white,
-    header-done-state-icon-foreground-color: #006837,
+    header-done-state-icon-background-color: #006837,
+    header-done-state-icon-foreground-color: white,
     header-edit-state-icon-foreground-color: whitesmoke,
     header-edit-state-icon-background-color: #006837,
     // header-error-state-icon-foreground-color: red,
@@ -28,6 +28,9 @@
     header-hover-state-layer-color:#eee,
     header-focus-state-layer-color:#eee,
     header-selected-state-label-text-weight: 400,
+
+    // header-done-state-icon-background-color
+    // header-done-state-icon-foreground-color
   ));
 }
 :root {

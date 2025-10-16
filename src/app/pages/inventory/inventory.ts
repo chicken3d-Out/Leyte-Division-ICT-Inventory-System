@@ -24,6 +24,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialog } from '../../delete-dialog/delete-dialog';
+
 
 
 @Component({
@@ -39,10 +42,11 @@ export class Inventory implements AfterViewInit {
   Add!:FormGroup
   equipmentId!: number;
   isEditMode = false;
-  equipments: string[] = ['Laptop', 'Desktop Computer', 'Printer', 'Router'];
+  equipments: string[] = ['Laptop', 'Desktop Computer','All in One','Tablet', 'Tablet PC','Thin Client','LED TV', 'Smart TV', 'Network Switch', 'Printer', 'Projector','External Harddrive','UPS','Wireless Router','Lapel','Charging Carts'];
   batches: string[] = ['DCP 2021', 'DCP 2022', 'DCP 2023', 'DCP 2024'];
-  sourcef: string[] = ['DCP', 'Non-DCP', 'SEF','PTA','Others'];
-  statusf: string[] = ['Functional', 'For Repair', 'For Condemn'];
+  sourcef: string[] = ['DCP', 'Non-DCP', 'LGU/SEF','PTA','Private Donations','Other Government Agency', 'Others'];
+  statusf: string[] = ['Functional', 'Non-Functional' ,'For Repair', 'For Disposal'];
+  purposeOf: string[] = ['Administrative Use', 'Academic Use'];
 
   schoolID: any;
 
@@ -55,13 +59,14 @@ export class Inventory implements AfterViewInit {
   @ViewChild(MatExpansionPanel) panel!: MatExpansionPanel;
 
   constructor(private fb: FormBuilder, private equipment: Equipments, private snackBar: MatSnackBar, private route: ActivatedRoute, private router:Router,
-    private viewport: ViewportScroller
+    private viewport: ViewportScroller, private dialog: MatDialog
   ) { }
 
   //Form Validation
   validation(){
     this.Add = this.fb.group({
-      equipment: new FormControl(null,[Validators.required]),
+
+      equip: new FormControl(null,[Validators.required]),
       serialnum: new FormControl(null,[Validators.required]),
       batch: new FormControl(null,[Validators.required]),
       fundsource: new FormControl(null,[Validators.required]),
@@ -78,7 +83,7 @@ export class Inventory implements AfterViewInit {
   }
 
    get equip(){
-    return this.Add.get('equipment');
+    return this.Add.get('equip');
   }
   get serialnum(){
     return this.Add.get('serialnum');
@@ -107,7 +112,10 @@ export class Inventory implements AfterViewInit {
   }
 
   getallData(){
-    this.equipment.getEquipments().subscribe(data => {
+
+    this.schoolID = localStorage.getItem('schoolId');
+
+    this.equipment.getEquipments(this.schoolID).subscribe(data => {
       this.dataSource.data = data;
     });
   }
@@ -153,6 +161,26 @@ export class Inventory implements AfterViewInit {
 
 
   deleteConfirm(id:any){
+    const dialogRef = this.dialog.open(DeleteDialog, {
+          width: '300px'
+        });
+    
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.equipment.deleteEquipment(id).subscribe(res => {
+              console.log('Row Deleted', res);
+    
+                this.snackBar.open('Row Deleted Successfully!', 'Close', {
+                    duration: 4000,              // auto close after 3s
+                    horizontalPosition: 'center', // 'start' | 'center' | 'end' | 'left' | 'right'
+                    verticalPosition: 'bottom',      // 'top' | 'bottom'
+                });
+                this.getallData();
+            });
+          } else {
+            console.log('❌ Save canceled');
+          }
+        });
 
   }
 
@@ -163,7 +191,7 @@ export class Inventory implements AfterViewInit {
   onSubmit(data: any){
 
     const insertEquip = {
-      equipment: data.equipment,
+      equip: data.equip,
       serialnum: data.serialnum,
       owner: data.owner,
       status: data.status,
@@ -203,7 +231,7 @@ export class Inventory implements AfterViewInit {
 
     const equipData = {
       id: this.equipmentId,
-      equipment : data.equipment,
+      equip: data.equip,
       serialnum: data.serialnum,
       batch: data.batch,
       fundsource: data.fundsource,
