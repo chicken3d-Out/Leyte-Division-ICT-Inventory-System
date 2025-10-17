@@ -9,7 +9,7 @@ import { authguardGuard } from './guard/authguard-guard';
 
 
 export const routes: Routes = [
-    {path: '', component: Dashboard, redirectTo: 'login', canActivate: [authguardGuard], children:[
+    {path: '', component: Dashboard, canActivate: [authguardGuard], children:[
         { path: '', redirectTo: 'statistics', pathMatch: 'full' },
         { path: 'statistics', component: Statistics},
         { path: 'intercon', component: Internetcon},

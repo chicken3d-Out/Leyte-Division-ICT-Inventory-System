@@ -24,7 +24,7 @@ export class Dashboard implements OnInit {
   previewUrl: any = null;
   private baseUrl = 'http://localhost/inventory-api';
   schoolName: any
-  logoUrl = 'https://srv995-files.hstgr.io/89c124184a80b22d/files/public_html/ict-inventory/uploads/depedleytedivisionlogo10162025.png';
+  logoUrl = 'http://localhost/inventory-api/uploads/depedleytedivisionlogo10162025.png';
 
   ngOnInit(): void {
     this.getschoolData();

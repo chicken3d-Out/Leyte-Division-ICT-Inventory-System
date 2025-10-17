@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class Internetservice {
   constructor(private http: HttpClient){}
 
-  private baseUrl = 'https://srv995-files.hstgr.io/89c124184a80b22d/files/public_html/ict-inventory';
+  private baseUrl = 'https://srv995-files.hstgr.io/ict-inventory';
 
 
   // Step 1: Internet connectivity
