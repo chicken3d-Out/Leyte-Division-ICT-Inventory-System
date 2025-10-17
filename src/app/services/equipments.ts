@@ -6,7 +6,7 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class Equipments {
-  private baseUrl = 'ldiis.depedleytedivision.com';
+  private baseUrl = 'https://ldiis.depedleytedivision.com';
 
   constructor(private http:HttpClient){
 

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class Internetservice {
   constructor(private http: HttpClient){}
 
-  private baseUrl = 'ldiis.depedleytedivision.com';
+  private baseUrl = 'https://ldiis.depedleytedivision.com';
 
 
   // Step 1: Internet connectivity
