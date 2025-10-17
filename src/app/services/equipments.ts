@@ -6,7 +6,7 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class Equipments {
-  private baseUrl = 'http://localhost/inventory-api';
+  private baseUrl = 'https://srv995-files.hstgr.io/89c124184a80b22d/files/public_html/ict-inventory';
 
   constructor(private http:HttpClient){
 
