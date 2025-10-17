@@ -31,7 +31,7 @@ export class Profile implements AfterViewInit {
   selectedFile!: File;
   previewUrl: any = null;
   schoolID: any;
-  private baseUrl = 'http://localhost/inventory-api';
+  private baseUrl = 'ldiis.depedleytedivision.com';
 
   
 

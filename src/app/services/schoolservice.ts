@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class Schoolservice {
 
-  private baseUrl = 'https://ldiis.depedleytedivision.com';
+  private baseUrl = 'ldiis.depedleytedivision.com';
 
   constructor(private http:HttpClient){
 

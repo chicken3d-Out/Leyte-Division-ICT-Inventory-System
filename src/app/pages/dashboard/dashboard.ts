@@ -22,9 +22,9 @@ export class Dashboard implements OnInit {
 
   schoolID: any;
   previewUrl: any = null;
-  private baseUrl = 'https://ldiis.depedleytedivision.com/uploads';
+  private baseUrl = 'ldiis.depedleytedivision.com';
   schoolName: any
-  logoUrl = 'https://ldiis.depedleytedivision.com/uploads/depedleytedivisionlogo10162025.png';
+  logoUrl = 'ldiis.depedleytedivision.com/uploads/depedleytedivisionlogo10162025.png';
 
   ngOnInit(): void {
     this.getschoolData();

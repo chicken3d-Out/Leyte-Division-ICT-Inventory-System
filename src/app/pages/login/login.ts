@@ -21,7 +21,8 @@ export class Login {
 
   username: string = '';
   password: string = '';
-  logoUrl = 'https://ldiis.depedleytedivision.com/uploads/depedleytedivisionlogo10162025.png';
+  logoUrl = 'ldiis.depedleytedivision.com/uploads/depedleytedivisionlogo10162025.png';
+  
   
 
   login() {
@@ -31,7 +32,7 @@ export class Login {
           const schoolId = res.school_id;
 
           // Option A: Pass via route
-          this.router.navigate(['']);
+          this.router.navigate(['/statistics']);
           localStorage.setItem('schoolId', `${schoolId}`);
           localStorage.setItem('watson', `${schoolId}`);
 
