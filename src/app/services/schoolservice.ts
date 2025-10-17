@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class Schoolservice {
 
-  private baseUrl = 'https://srv995-files.hstgr.io/ict-inventory';
+  private baseUrl = 'https://ldiis.depedleytedivision.com';
 
   constructor(private http:HttpClient){
 

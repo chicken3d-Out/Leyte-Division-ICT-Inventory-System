@@ -6,7 +6,7 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class Equipments {
-  private baseUrl = 'https://srv995-files.hstgr.io/ict-inventory';
+  private baseUrl = 'https://ldiis.depedleytedivision.com';
 
   constructor(private http:HttpClient){
 

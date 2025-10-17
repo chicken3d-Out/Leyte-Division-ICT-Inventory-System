@@ -9,7 +9,7 @@ export class Authentication {
 
   constructor(private http: HttpClient){}
 
-  private baseUrl = 'https://srv995-files.hstgr.io/ict-inventory';
+  private baseUrl = 'https://ldiis.depedleytedivision.com';
 
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/login.php`, { username, password });
