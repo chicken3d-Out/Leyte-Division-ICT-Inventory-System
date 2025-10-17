@@ -21,7 +21,7 @@ export class Login {
 
   username: string = '';
   password: string = '';
-  logoUrl = 'http://localhost/inventory-api/uploads/depedleytedivisionlogo10162025.png';
+  logoUrl = 'https://srv995-files.hstgr.io/89c124184a80b22d/files/public_html/ict-inventory/uploads/depedleytedivisionlogo10162025.png';
   
 
   login() {

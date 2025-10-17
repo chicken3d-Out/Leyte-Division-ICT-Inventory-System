@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: '' // or your dev API
+  apiUrl: 'srv995.hstgr.io' // or your dev API
 };
