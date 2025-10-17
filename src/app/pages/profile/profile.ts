@@ -31,10 +31,8 @@ export class Profile implements AfterViewInit {
   selectedFile!: File;
   previewUrl: any = null;
   schoolID: any;
-  private baseUrl = 'ldiis.depedleytedivision.com';
-
+  private baseUrl = 'https://ldiis.depedleytedivision.com';
   
-
   constructor(private fb: FormBuilder, private schoolService: Schoolservice, private route: ActivatedRoute, private snackBar: MatSnackBar
     , private router: Router, private dialog: MatDialog
   ) {}

@@ -21,9 +21,8 @@ export class Login {
 
   username: string = '';
   password: string = '';
-  logoUrl = 'ldiis.depedleytedivision.com/uploads/depedleytedivisionlogo10162025.png';
-  
-  
+  logoUrl = 'https://ldiis.depedleytedivision.com/uploads/depedleytedivisionlogo10162025.png';
+
 
   login() {
     this.auth.login(this.username, this.password).subscribe(
