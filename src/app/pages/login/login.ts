@@ -21,7 +21,7 @@ export class Login {
 
   username: string = '';
   password: string = '';
-  logoUrl = 'http://localhost/inventory-api/uploads/depedleytedivisionlogo10162025.png';
+  logoUrl = 'https://ldiis.depedleytedivision.com/ict-inventory/uploads/depedleytedivisionlogo10162025.png';
   
 
   login() {
