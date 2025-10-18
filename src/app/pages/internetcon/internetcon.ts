@@ -171,15 +171,12 @@ export class Internetcon implements AfterViewInit {
     
   }
   patchInternetCon(){
-    this.loading = true;
+
     this.schoolID = localStorage.getItem('schoolId');
 
     this.netService.getLatestInternetConnectivity(this.schoolID).subscribe(res => {
       if (res.status === 'success') {
         this.internetForm.patchValue(res.data);
-
-        this.loading=false;
-        this.cdr.detectChanges();
 
         console.log("Patch Success!")
       } else {
