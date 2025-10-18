@@ -392,7 +392,7 @@ export class Internetcon implements AfterViewInit {
     this.schoolID = localStorage.getItem('schoolId');
 
     this.netService.getInternetService(this.schoolID).subscribe(res=>{
-      this.dataSource.data = res;
+      this.dataSource.data = res || [];
 
       this.loading= false;
       this.cdr.detectChanges();
