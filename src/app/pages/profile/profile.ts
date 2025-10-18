@@ -183,7 +183,7 @@ export class Profile implements AfterViewInit {
 
   getschoolData(){
 
-    this.loading = false;
+    this.loading = true;
     // Example: schoolId comes from login/session/route
   // this.schoolID = Number(localStorage.getItem('schoolId'));
   this.schoolID = localStorage.getItem('schoolId');
