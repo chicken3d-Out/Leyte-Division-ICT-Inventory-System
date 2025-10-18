@@ -1,4 +1,5 @@
-<div class="form-wrapper">
+<mat-progress-bar *ngIf="loading" style="margin-top:20px;" mode="indeterminate"></mat-progress-bar>
+<div *ngIf="!loading" class="form-wrapper">
   <mat-card appearance="outlined">
     <h2>School Profile</h2>
 

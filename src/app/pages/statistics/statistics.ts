@@ -12,8 +12,8 @@ import { FormControl} from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 // Register everything from Chart.js
 import { Equipments } from '../../services/equipments';
@@ -33,9 +33,9 @@ Chart.register(...registerables,BarElement, BarController, CategoryScale, Linear
   selector: 'app-statistics',
   standalone: true,
   imports: [MatButtonModule, MatCardModule, CommonModule,BaseChartDirective, MatIconModule, MatTabsModule, MatFormFieldModule,
-    MatInputModule,MatLabel, MatError, MatButtonModule,CommonModule,
+    MatInputModule,MatLabel, MatError, MatButtonModule,CommonModule,MatProgressBarModule,
     ReactiveFormsModule, FormsModule, MatSelectModule,
-    MatFormFieldModule, MatRadioModule,MatRippleModule,
+    MatFormFieldModule, MatRadioModule,MatRippleModule,MatProgressSpinnerModule,
     MatButtonModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,6 +45,8 @@ Chart.register(...registerables,BarElement, BarController, CategoryScale, Linear
 
 
 export class Statistics implements OnInit, OnDestroy {
+
+  loading=true;
 
   schoolName:any;
   schoolID:any
@@ -316,30 +318,39 @@ export class Statistics implements OnInit, OnDestroy {
     }
 
     loadChartData1() {
+      this.loading=true;
     
       this.dataUnsub1 = this.equipmentService.getEquipmentStats(this.schoolID).subscribe(data => {
         console.log('Equipment data:', data);
         this.chartData1.labels = data.map(item => item.equipment);
         this.chartData1.datasets[0].data = data.map(item => item.total);
 
+        this.loading=false;
+
       });
     }
     loadChartData2() {
+      this.loading=true;
     
       this.dataUnsub2 = this.equipmentService.getBatchStats(this.schoolID).subscribe(data => {
         console.log('Batch data:', data);
         this.chartData2.labels = data.map(item => item.batch);
         this.chartData2.datasets[0].data = data.map(item => item.total);
 
+        this.loading=false;
+
       });
     }
 
     loadChartData3() {
+      this.loading=true;
     
       this.dataUnsub3 = this.equipmentService.getFundSourceStats(this.schoolID).subscribe(data => {
         console.log('Funds data:', data);
         this.chartData3.labels = data.map(item => item.fundsource);
         this.chartData3.datasets[0].data = data.map(item => item.total);
+
+        this.loading=false;
 
       });
     }
@@ -347,55 +358,74 @@ export class Statistics implements OnInit, OnDestroy {
 
     //DASHBOARD STAT
     loadChartData4() {
+      this.loading=true;
     
       this.dataUnsub4 = this.equipmentService.getEquipmentStatsAll().subscribe(data => {
         console.log('Equipment data:', data);
         this.chartData4.labels = data.map(item => item.equipment);
         this.chartData4.datasets[0].data = data.map(item => item.total);
+        this.loading=false
 
       });
     }
     loadChartData5() {
+      this.loading=true;
     
       this.dataUnsub5 = this.equipmentService.getBatchStatsAll().subscribe(data => {
         console.log('Batch data:', data);
         this.chartData5.labels = data.map(item => item.batch);
         this.chartData5.datasets[0].data = data.map(item => item.total);
 
+        this.loading=false;
+
       });
     }
 
     loadChartData6() {
+      this.loading=true;
     
       this.dataUnsub6 = this.equipmentService.getFundSourceStatsAll().subscribe(data => {
         console.log('Funds data:', data);
         this.chartData6.labels = data.map(item => item.fundsource);
         this.chartData6.datasets[0].data = data.map(item => item.total);
 
+        this.loading=false;
+
       });
     }
 
     getAdminAcademicCount(){
+      this.loading=true;
+
       this.equipmentService.getPurposeStats(this.schoolID).subscribe(data => {
         this.academicTotal = data.find((d: any) => d.purpose === 'Academic Use')?.total || 0;
         this.administrativeTotal = data.find((d: any) => d.purpose === 'Administrative Use')?.total || 0;
+
+        this.loading=false;
       });
     }
 
     getAdminAcademicCountAll(){
+      this.loading=true;
+
       this.equipmentService.getPurposeStatsAll().subscribe(data => {
         this.academicTotalAll = data.find((d: any) => d.purpose === 'Academic Use')?.total || 0;
         this.administrativeTotalAll = data.find((d: any) => d.purpose === 'Administrative Use')?.total || 0;
+
+        this.loading=false;
       });
     }
 
     statusCount(){
+      this.loading=true;
       
       this.equipmentService.getStatusStats(this.schoolID).subscribe(data => {
         this.condemnCount = data.find(d => d.status === 'For Disposal')?.total || 0;
         this.repairCount = data.find(d => d.status === 'For Repair')?.total || 0;
         this.functionalCount = data.find(d => d.status === 'Functional')?.total || 0;
         this.nonfunctionalCount = data.find(d => d.status === 'Non-Functional')?.total || 0;
+
+        this.loading=false;
 
         // console.log(this.condemnCount)
         // console.log(this.repairCount)
@@ -407,12 +437,15 @@ export class Statistics implements OnInit, OnDestroy {
     }
 
     statusCountAll(){
+      this.loading=true;
       
       this.equipmentService.getStatusStatsAll().subscribe(data => {
         this.condemnCountAll = data.find(d => d.status === 'For Disposal')?.total || 0;
         this.repairCountAll = data.find(d => d.status === 'For Repair')?.total || 0;
         this.functionalCountAll = data.find(d => d.status === 'Functional')?.total || 0;
         this.nonfunctionalCountAll = data.find(d => d.status === 'Non-Functional')?.total || 0;
+
+        this.loading=false;
 
         this.cdr.markForCheck(); // force Angular to detect changes
       });
@@ -433,6 +466,7 @@ export class Statistics implements OnInit, OnDestroy {
     onSelectInput(value: string) {
 
       if(this.selectedGroup === 'area'){
+        this.loading=true;
         //UPPER STAT FIRST ROW
         this.equipmentService.getStatsByArea(value).subscribe(data => {
           this.condemnCountAll = data.find(d => d.status === 'For Disposal')?.total || 0;
@@ -440,34 +474,50 @@ export class Statistics implements OnInit, OnDestroy {
           this.functionalCountAll = data.find(d => d.status === 'Functional')?.total || 0;
           this.nonfunctionalCountAll = data.find(d => d.status === 'Non-Functional')?.total || 0;
 
+          this.loading=false;
+
           // this.cdr.markForCheck(); // force Angular to detect changes
         })
 
         this.equipmentService.getPurposeByArea(value).subscribe(data => {
+
+          this.loading=true;
           this.academicTotalAll = data.find((d: any) => d.purpose === 'Academic Use')?.total || 0;
           this.administrativeTotalAll = data.find((d: any) => d.purpose === 'Administrative Use')?.total || 0;
+
+          this.loading=false;
         });
 
         //EQUIPMENT TYPE
 
         this.dataUnsub4 = this.equipmentService.getEquipmentByArea(value).subscribe(data => {
+
+          this.loading=true;
           this.chartData4.labels = data.map(item => item.equipment);
           this.chartData4.datasets[0].data = data.map(item => item.total);
+
+          this.loading=false;
 
         });
 
 
         this.dataUnsub5 = this.equipmentService.getDcpBatchByArea(value).subscribe(data => {
+          this.loading=true;
           // console.log('Batch data:', data);
           this.chartData5.labels = data.map(item => item.batch);
           this.chartData5.datasets[0].data = data.map(item => item.total);
+          this.loading=false;
 
         });
 
         this.dataUnsub6 = this.equipmentService.getFundSourceByArea(value).subscribe(data => {
+
+          this.loading=true;
           // console.log('Funds data:', data);
           this.chartData6.labels = data.map(item => item.fundsource);
           this.chartData6.datasets[0].data = data.map(item => item.total);
+
+          this.loading=false;
 
         });
 
@@ -477,6 +527,8 @@ export class Statistics implements OnInit, OnDestroy {
         
 
       }else if (this.selectedGroup === 'district'){
+
+        this.loading=true;
         //UPPER STAT FIRST ROW
         this.equipmentService.getStatsByDistrict(value).subscribe(data => {
           this.condemnCountAll = data.find(d => d.status === 'For Disposal')?.total || 0;
@@ -484,35 +536,51 @@ export class Statistics implements OnInit, OnDestroy {
           this.functionalCountAll = data.find(d => d.status === 'Functional')?.total || 0;
           this.nonfunctionalCountAll = data.find(d => d.status === 'Non-Functional')?.total || 0;
 
+          this.loading=false;
+
           // this.cdr.markForCheck(); // force Angular to detect changes
         })
 
         this.equipmentService.getPurposeByDistrict(value).subscribe(data => {
+
+          this.loading=true;
           this.academicTotalAll = data.find((d: any) => d.purpose === 'Academic Use')?.total || 0;
           this.administrativeTotalAll = data.find((d: any) => d.purpose === 'Administrative Use')?.total || 0;
+
+          this.loading=false;
         });
 
 
         //GET EQUIPMENT TYPE BY DISTRICT
         this.dataUnsub4 = this.equipmentService.getEquipmentByDistrict(value).subscribe(data => {
+          this.loading=true;
           this.chartData4.labels = data.map(item => item.equipment);
           this.chartData4.datasets[0].data = data.map(item => item.total);
+          this.loading=false;
 
         });
 
 
         this.dataUnsub5 = this.equipmentService.getDcpBatchByDistrict(value).subscribe(data => {
+
+          this.loading=true;
           
           this.chartData5.labels = data.map(item => item.batch);
           this.chartData5.datasets[0].data = data.map(item => item.total);
+
+          this.loading=false;
 
         });
 
 
         this.dataUnsub6 = this.equipmentService.getFundSourceByDistrict(value).subscribe(data => {
+
+          this.loading=true;
           console.log('Funds data:', data);
           this.chartData6.labels = data.map(item => item.fundsource);
           this.chartData6.datasets[0].data = data.map(item => item.total);
+
+          this.loading=false;
 
         });
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatExpansionModule, MatExpansionPanel} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -26,13 +26,16 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialog } from '../../delete-dialog/delete-dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { finalize } from 'rxjs/operators';
 
 
 
 @Component({
   selector: 'app-inventory',
   imports: [MatCardModule, MatExpansionModule,MatFormFieldModule,MatButtonModule,MatDatepickerModule,MatIconModule,MatInputModule, CommonModule, ReactiveFormsModule
-    ,MatTableModule, MatPaginatorModule,MatSortModule, RouterModule, MatOptionModule, MatAutocompleteModule, MatDatepickerModule
+    ,MatTableModule, MatPaginatorModule,MatSortModule, RouterModule, MatOptionModule, MatAutocompleteModule, MatDatepickerModule, MatProgressSpinnerModule, MatProgressBarModule
    ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './inventory.html',
@@ -42,6 +45,9 @@ export class Inventory implements AfterViewInit {
   Add!:FormGroup
   equipmentId!: number;
   isEditMode = false;
+  loading = true;
+
+
   equipments: string[] = ['Laptop', 'Desktop Computer','All in One','Tablet', 'Tablet PC','Thin Client','LED TV', 'Smart TV', 'Network Switch', 'Printer', 'Projector','External Harddrive','UPS','Wireless Router','Lapel','Charging Carts'];
   batches: string[] = ['DCP 2021', 'DCP 2022', 'DCP 2023', 'DCP 2024'];
   sourcef: string[] = ['DCP', 'Non-DCP', 'LGU/SEF','PTA','Private Donations','Other Government Agency', 'Others'];
@@ -59,7 +65,7 @@ export class Inventory implements AfterViewInit {
   @ViewChild(MatExpansionPanel) panel!: MatExpansionPanel;
 
   constructor(private fb: FormBuilder, private equipment: Equipments, private snackBar: MatSnackBar, private route: ActivatedRoute, private router:Router,
-    private viewport: ViewportScroller, private dialog: MatDialog
+    private viewport: ViewportScroller, private dialog: MatDialog, private cdr: ChangeDetectorRef
   ) { }
 
   //Form Validation
@@ -112,11 +118,19 @@ export class Inventory implements AfterViewInit {
   }
 
   getallData(){
-
     this.schoolID = localStorage.getItem('schoolId');
+
+    this.loading = true;
+
 
     this.equipment.getEquipments(this.schoolID).subscribe(data => {
       this.dataSource.data = data;
+      
+
+      this.loading = false;
+      this.cdr.detectChanges();
+
+
     });
   }
 

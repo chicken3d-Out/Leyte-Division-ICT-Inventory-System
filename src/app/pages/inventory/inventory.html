@@ -1,4 +1,5 @@
-<mat-card id="targetDiv" class="main" appearance="outlined">
+<mat-progress-bar *ngIf="loading" style="margin-top:20px;" mode="indeterminate"></mat-progress-bar>
+<mat-card *ngIf="!loading" id="targetDiv" class="main" appearance="outlined">
     <mat-expansion-panel style="margin-bottom: 10px;" hideToggle>
         <mat-expansion-panel-header (click)="onAdd()" style="background-color: #eee; margin-bottom: 4px;">
         <mat-panel-title> <h4 [ngStyle]="{ 'color': isEditMode ? 'darkblue' : '#006837' }" style="padding: 0; margin: 0;">{{ isEditMode ? 'Edit Equipment' : 'Add Equipment' }}</h4></mat-panel-title><mat-icon [ngStyle]="{ 'color': isEditMode ? 'darkblue' : '#006837' }" fontIcon="{{ isEditMode ? 'draw' : 'add_box' }}"></mat-icon>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {inject} from '@angular/core';
 import {FormBuilder,FormGroup, Validators, FormsModule, ReactiveFormsModule, Form, FormControl} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
@@ -30,6 +30,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { DeleteDialog } from '../../delete-dialog/delete-dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-internetcon',
@@ -37,8 +39,8 @@ import { DeleteDialog } from '../../delete-dialog/delete-dialog';
     FormsModule, MatExpansionPanelDescription,MatExpansionModule,MatCheckboxModule, MatExpansionPanelTitle,
     MatFormFieldModule, MatSortModule,MatPaginatorModule, MatSort,MatPaginator,MatTableModule, ReactiveFormsModule,
     MatInputModule, MatDividerModule, CommonModule, MatExpansionPanel, MatOptionModule,
-    MatButtonModule, MatRadioModule, MatDatepickerModule, MatAutocompleteModule, MatExpansionPanelHeader,
-    MatIconModule, MatCardModule],
+    MatButtonModule, MatRadioModule, MatDatepickerModule, MatAutocompleteModule, MatExpansionPanelHeader, MatProgressSpinnerModule,
+    MatIconModule, MatCardModule, MatProgressBarModule],
   templateUrl: './internetcon.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './internetcon.css',
@@ -47,8 +49,9 @@ import { DeleteDialog } from '../../delete-dialog/delete-dialog';
 })
 export class Internetcon implements AfterViewInit {
 
-  constructor(private fb: FormBuilder, private netService:Internetservice, private dialog: MatDialog, private snackBar:MatSnackBar) {}
+  constructor(private fb: FormBuilder, private netService:Internetservice, private dialog: MatDialog, private snackBar:MatSnackBar, private cdr: ChangeDetectorRef) {}
   
+  loading = true;
 
   ispID:any
   internetForm!: FormGroup;
@@ -168,11 +171,16 @@ export class Internetcon implements AfterViewInit {
     
   }
   patchInternetCon(){
+    this.loading = true;
     this.schoolID = localStorage.getItem('schoolId');
 
     this.netService.getLatestInternetConnectivity(this.schoolID).subscribe(res => {
       if (res.status === 'success') {
         this.internetForm.patchValue(res.data);
+
+        this.loading=false;
+        this.cdr.detectChanges();
+
         console.log("Patch Success!")
       } else {
         console.error(res.message);
@@ -383,14 +391,17 @@ export class Internetcon implements AfterViewInit {
   }
 
   getallISP(){
+    this.loading= true;
     this.schoolID = localStorage.getItem('schoolId');
 
     this.netService.getInternetService(this.schoolID).subscribe(res=>{
       this.dataSource.data = res;
+
+      this.loading= false;
+      this.cdr.detectChanges();
       
       console.log("Patching on Step 2 okay")
     })
-
 
   }
 

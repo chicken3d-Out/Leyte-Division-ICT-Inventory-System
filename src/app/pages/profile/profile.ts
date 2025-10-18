@@ -15,17 +15,21 @@ import { ConfirmDialog } from '../../confirm-dialog/confirm-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { MatOption } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @Component({
   selector: 'app-profile',
   imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatCardModule, MatIconModule,
-    MatOption, MatAutocompleteModule
+    MatOption, MatAutocompleteModule, MatProgressSpinnerModule, MatProgressBarModule
   ],
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })
 export class Profile implements AfterViewInit {
+
+  loading=true;
 
   schoolForm!: FormGroup;
   selectedFile!: File;
@@ -178,6 +182,8 @@ export class Profile implements AfterViewInit {
   }
 
   getschoolData(){
+
+    this.loading = false;
     // Example: schoolId comes from login/session/route
   // this.schoolID = Number(localStorage.getItem('schoolId'));
   this.schoolID = localStorage.getItem('schoolId');
@@ -200,6 +206,8 @@ export class Profile implements AfterViewInit {
         number_of_teachers: data.number_of_teachers,
         number_of_non_teaching_personnel: data.number_of_non_teaching_personnel
       });
+
+      this.loading=false;
 
       // Preview logo if exists
       if (data.school_logo) {

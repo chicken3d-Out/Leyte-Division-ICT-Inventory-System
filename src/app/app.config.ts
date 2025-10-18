@@ -9,6 +9,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { routes } from './app.routes';
 import { DatePipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 export const appConfig: ApplicationConfig = {
@@ -16,6 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    MatSidenavModule, BrowserAnimationsModule,RouterModule, HttpClient, provideHttpClient(), provideNativeDateAdapter(), DatePipe,ReactiveFormsModule
+    MatSidenavModule,MatProgressSpinnerModule, BrowserAnimationsModule,RouterModule, HttpClient, provideHttpClient(), provideNativeDateAdapter(), DatePipe,ReactiveFormsModule
   ]
 };

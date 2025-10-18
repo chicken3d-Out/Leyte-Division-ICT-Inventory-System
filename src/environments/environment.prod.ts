@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: '' // replace with your live API
+  apiUrl: 'https://ldiis.depedleytedivision.com' // replace with your live API
 };

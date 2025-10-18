@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,8 @@ import { Observable } from 'rxjs';
 export class Internetservice {
   constructor(private http: HttpClient){}
 
-  private baseUrl = 'https://ldiis.depedleytedivision.com';
+  // private baseUrl = 'https://ldiis.depedleytedivision.com';
+  private baseUrl = environment.apiUrl;
 
 
   // Step 1: Internet connectivity

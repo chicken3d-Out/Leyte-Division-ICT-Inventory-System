@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: '' // or your dev API
+  apiUrl: 'http://localhost/inventory-api' // or your dev API
 };

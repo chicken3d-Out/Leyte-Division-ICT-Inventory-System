@@ -6,12 +6,14 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { MatCard, MatCardActions, MatCardHeader, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
 import { Schoolservice } from '../../services/schoolservice';
 
 @Component({
   selector: 'app-dashboard',
   imports: [MatButtonModule, MatIconModule,MatSidenavModule, MatToolbarModule, MatMenuModule, RouterModule, 
-     MatCard, MatCardTitle, MatCardHeader
+     MatCard, MatCardTitle, MatCardHeader, CommonModule
+
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
