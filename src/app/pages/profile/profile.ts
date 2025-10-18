@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -38,7 +38,7 @@ export class Profile implements AfterViewInit {
   private baseUrl = 'https://ldiis.depedleytedivision.com';
   
   constructor(private fb: FormBuilder, private schoolService: Schoolservice, private route: ActivatedRoute, private snackBar: MatSnackBar
-    , private router: Router, private dialog: MatDialog
+    , private router: Router, private dialog: MatDialog,private cdr: ChangeDetectorRef
   ) {}
 
   areas = ['Area 1', 'Area 2-A','Area 2-B', 'Area 3', 'Area 4','Area 5-A', 'Area 5-B'];
@@ -208,6 +208,7 @@ export class Profile implements AfterViewInit {
       });
 
       this.loading=false;
+      this.cdr.detectChanges();
 
       // Preview logo if exists
       if (data.school_logo) {
