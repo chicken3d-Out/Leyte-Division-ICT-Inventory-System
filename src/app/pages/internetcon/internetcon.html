@@ -1,4 +1,5 @@
-<mat-card style="padding: 15px;" appearance="outlined">
+<mat-progress-bar *ngIf="loading" style="margin-top:20px;" mode="indeterminate"></mat-progress-bar>
+<mat-card *ngIf="!loading" style="padding: 15px;" appearance="outlined">
     <h2>Internet Connectivity</h2>
     <mat-horizontal-stepper [linear]="false" #stepper>
         <mat-step [stepControl]="internetForm">
