@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { Authentication } from '../../services/authentication';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -19,13 +20,20 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 export class Login {
   constructor(private auth:Authentication, private router:Router, private snackBar: MatSnackBar){}
 
+  unsub!: Subscription;
+
   username: string = '';
   password: string = '';
   logoUrl = 'https://ldiis.depedleytedivision.com/uploads/depedleytedivisionlogo10162025.png';
 
+  ngOnDestroy(){
+    this.unsub.unsubscribe()
+
+  }
+
 
   login() {
-    this.auth.login(this.username, this.password).subscribe(
+    this.unsub = this.auth.login(this.username, this.password).subscribe(
       (res) => {
         if (res.success) {
           const schoolId = res.school_id;
