@@ -78,6 +78,17 @@ export class Statistics implements OnInit, OnDestroy {
   dataUnsub5!: Subscription;
   dataUnsub6!: Subscription;
 
+  stsCount!: Subscription;
+  stsCountAll!: Subscription;
+  fetchSID!: Subscription;
+  getAdminAcaCount!: Subscription;
+  getAdminAcaCountAll!: Subscription;
+  getsData!: Subscription;
+  equipStat!: Subscription;
+  equipPurpose!: Subscription;
+  getPurpDist!: Subscription;
+  equipStatDist!: Subscription;
+
   selectedGroup: string = ''; 
   selectedArea: string = '';
   selectedDistrict: string = '';
@@ -258,7 +269,7 @@ export class Statistics implements OnInit, OnDestroy {
 
     // this.schoolID = localStorage.getItem('schoolId');
 
-    this.schoolService.getSchool(this.schoolID).subscribe(res => {
+    this.getsData = this.schoolService.getSchool(this.schoolID).subscribe(res => {
       console.log(res);
       if (res.success) {
         const data = res.data;
@@ -274,7 +285,7 @@ export class Statistics implements OnInit, OnDestroy {
 
     fetchSchoolID(){
       // Fetch all school IDs once on component load
-    this.equipmentService.getAllSchoolIds().subscribe({
+    this.fetchSID = this.equipmentService.getAllSchoolIds().subscribe({
       next: (ids: string[]) => {
         this.allSchoolIDs = ids;
         // Set up validation after IDs are loaded
@@ -315,6 +326,13 @@ export class Statistics implements OnInit, OnDestroy {
       this.dataUnsub4.unsubscribe();
       this.dataUnsub5.unsubscribe();
       this.dataUnsub6.unsubscribe();
+
+      this.stsCount.unsubscribe();
+      this.stsCountAll.unsubscribe();
+      this.fetchSID.unsubscribe();
+      this.getAdminAcaCount.unsubscribe();
+      this.getAdminAcaCountAll.unsubscribe();
+      this.getsData.unsubscribe();
     }
 
     loadChartData1() {
@@ -397,7 +415,7 @@ export class Statistics implements OnInit, OnDestroy {
     getAdminAcademicCount(){
       this.loading=true;
 
-      this.equipmentService.getPurposeStats(this.schoolID).subscribe(data => {
+       this.getAdminAcaCount = this.equipmentService.getPurposeStats(this.schoolID).subscribe(data => {
         this.academicTotal = data.find((d: any) => d.purpose === 'Academic Use')?.total || 0;
         this.administrativeTotal = data.find((d: any) => d.purpose === 'Administrative Use')?.total || 0;
 
@@ -408,7 +426,7 @@ export class Statistics implements OnInit, OnDestroy {
     getAdminAcademicCountAll(){
       this.loading=true;
 
-      this.equipmentService.getPurposeStatsAll().subscribe(data => {
+       this.getAdminAcaCountAll = this.equipmentService.getPurposeStatsAll().subscribe(data => {
         this.academicTotalAll = data.find((d: any) => d.purpose === 'Academic Use')?.total || 0;
         this.administrativeTotalAll = data.find((d: any) => d.purpose === 'Administrative Use')?.total || 0;
 
@@ -419,7 +437,7 @@ export class Statistics implements OnInit, OnDestroy {
     statusCount(){
       this.loading=true;
       
-      this.equipmentService.getStatusStats(this.schoolID).subscribe(data => {
+       this.stsCount = this.equipmentService.getStatusStats(this.schoolID).subscribe(data => {
         this.condemnCount = data.find(d => d.status === 'For Disposal')?.total || 0;
         this.repairCount = data.find(d => d.status === 'For Repair')?.total || 0;
         this.functionalCount = data.find(d => d.status === 'Functional')?.total || 0;
@@ -439,7 +457,7 @@ export class Statistics implements OnInit, OnDestroy {
     statusCountAll(){
       this.loading=true;
       
-      this.equipmentService.getStatusStatsAll().subscribe(data => {
+       this.stsCountAll = this.equipmentService.getStatusStatsAll().subscribe(data => {
         this.condemnCountAll = data.find(d => d.status === 'For Disposal')?.total || 0;
         this.repairCountAll = data.find(d => d.status === 'For Repair')?.total || 0;
         this.functionalCountAll = data.find(d => d.status === 'Functional')?.total || 0;
@@ -468,7 +486,7 @@ export class Statistics implements OnInit, OnDestroy {
       if(this.selectedGroup === 'area'){
         this.loading=true;
         //UPPER STAT FIRST ROW
-        this.equipmentService.getStatsByArea(value).subscribe(data => {
+         this.equipStat = this.equipmentService.getStatsByArea(value).subscribe(data => {
           this.condemnCountAll = data.find(d => d.status === 'For Disposal')?.total || 0;
           this.repairCountAll = data.find(d => d.status === 'For Repair')?.total || 0;
           this.functionalCountAll = data.find(d => d.status === 'Functional')?.total || 0;
@@ -479,7 +497,7 @@ export class Statistics implements OnInit, OnDestroy {
           // this.cdr.markForCheck(); // force Angular to detect changes
         })
 
-        this.equipmentService.getPurposeByArea(value).subscribe(data => {
+        this.equipPurpose = this.equipmentService.getPurposeByArea(value).subscribe(data => {
 
           this.loading=true;
           this.academicTotalAll = data.find((d: any) => d.purpose === 'Academic Use')?.total || 0;
@@ -530,7 +548,7 @@ export class Statistics implements OnInit, OnDestroy {
 
         this.loading=true;
         //UPPER STAT FIRST ROW
-        this.equipmentService.getStatsByDistrict(value).subscribe(data => {
+        this. equipStatDist = this.equipmentService.getStatsByDistrict(value).subscribe(data => {
           this.condemnCountAll = data.find(d => d.status === 'For Disposal')?.total || 0;
           this.repairCountAll = data.find(d => d.status === 'For Repair')?.total || 0;
           this.functionalCountAll = data.find(d => d.status === 'Functional')?.total || 0;
@@ -541,7 +559,7 @@ export class Statistics implements OnInit, OnDestroy {
           // this.cdr.markForCheck(); // force Angular to detect changes
         })
 
-        this.equipmentService.getPurposeByDistrict(value).subscribe(data => {
+        this.getPurpDist = this.equipmentService.getPurposeByDistrict(value).subscribe(data => {
 
           this.loading=true;
           this.academicTotalAll = data.find((d: any) => d.purpose === 'Academic Use')?.total || 0;

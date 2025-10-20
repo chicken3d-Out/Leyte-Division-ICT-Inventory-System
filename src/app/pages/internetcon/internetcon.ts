@@ -32,6 +32,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { DeleteDialog } from '../../delete-dialog/delete-dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-internetcon',
@@ -52,6 +53,8 @@ export class Internetcon implements AfterViewInit {
   constructor(private fb: FormBuilder, private netService:Internetservice, private dialog: MatDialog, private snackBar:MatSnackBar, private cdr: ChangeDetectorRef) {}
   
   loading = true;
+  subGet!: Subscription;
+  subGet2!: Subscription;
 
   ispID:any
   internetForm!: FormGroup;
@@ -90,6 +93,14 @@ export class Internetcon implements AfterViewInit {
 
     
    
+  }
+
+  ngOnDestroy(){
+
+    this.subGet.unsubscribe();
+    this.subGet2.unsubscribe();
+
+
   }
 
   validation (){
@@ -174,7 +185,7 @@ export class Internetcon implements AfterViewInit {
 
     this.schoolID = localStorage.getItem('schoolId');
 
-    this.netService.getLatestInternetConnectivity(this.schoolID).subscribe(res => {
+    this.subGet2 = this.netService.getLatestInternetConnectivity(this.schoolID).subscribe(res => {
       if (res.status === 'success') {
         this.internetForm.patchValue(res.data);
 
@@ -391,7 +402,7 @@ export class Internetcon implements AfterViewInit {
     this.loading= true;
     this.schoolID = localStorage.getItem('schoolId');
 
-    this.netService.getInternetService(this.schoolID).subscribe(res=>{
+    this.subGet = this.netService.getInternetService(this.schoolID).subscribe(res=>{
       this.dataSource.data = res;
 
       this.loading= false;

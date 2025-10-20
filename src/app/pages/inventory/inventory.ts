@@ -29,6 +29,7 @@ import { DeleteDialog } from '../../delete-dialog/delete-dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { finalize } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 
 
@@ -55,6 +56,7 @@ export class Inventory implements AfterViewInit {
   purposeOf: string[] = ['Administrative Use', 'Academic Use'];
 
   schoolID: any;
+  subGet!: Subscription;
 
 
   displayedColumns: string[] = ['equipment', 'serialnum', 'owner', 'status', 'batch', 'fundsource', 'remarks','dateR', 'created_at', 'action'];
@@ -123,7 +125,7 @@ export class Inventory implements AfterViewInit {
     this.loading = true;
 
 
-    this.equipment.getEquipments(this.schoolID).subscribe(data => {
+    this.subGet = this.equipment.getEquipments(this.schoolID).subscribe(data => {
       this.dataSource.data = data;
       
 
@@ -139,6 +141,13 @@ export class Inventory implements AfterViewInit {
 
     this.getallData();
   }
+
+  ngOnDestroy(){
+
+    this.subGet.unsubscribe();
+
+  }
+
   onAdd(){
     this.isEditMode =false;
     this.resetForm();
