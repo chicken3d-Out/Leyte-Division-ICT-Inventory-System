@@ -312,9 +312,59 @@ export class Statistics implements OnInit, OnDestroy {
     }
 
     onSubmit() {
-      const validSchoolID = this.schoolIDControl.value;
-      console.log('Valid School ID:', validSchoolID);
-      // You can now pass this validSchoolID to your next logic or API
+      let validSchoolID = this.schoolIDControl.value || '';
+
+      this.loading=true;
+
+
+       this.getAdminAcaCount = this.equipmentService.getPurposeStats(validSchoolID).subscribe(data => {
+        this.academicTotal = data.find((d: any) => d.purpose === 'Academic Use')?.total || 0;
+        this.administrativeTotal = data.find((d: any) => d.purpose === 'Administrative Use')?.total || 0;
+        this.loading=false;
+       })
+
+       this.loading=true;
+      
+       this.stsCount = this.equipmentService.getStatusStats(validSchoolID).subscribe(data => {
+        this.condemnCount = data.find(d => d.status === 'For Disposal')?.total || 0;
+        this.repairCount = data.find(d => d.status === 'For Repair')?.total || 0;
+        this.functionalCount = data.find(d => d.status === 'Functional')?.total || 0;
+        this.nonfunctionalCount = data.find(d => d.status === 'Non-Functional')?.total || 0;
+
+        this.loading=false;
+       })
+
+       this.dataUnsub1 = this.equipmentService.getEquipmentStats(validSchoolID).subscribe(data => {
+        console.log('Equipment data:', data);
+        this.chartData1.labels = data.map(item => item.equipment);
+        this.chartData1.datasets[0].data = data.map(item => item.total);
+
+        this.loading=false;
+
+      });
+
+      this.loading=true;
+    
+      this.dataUnsub2 = this.equipmentService.getBatchStats(validSchoolID).subscribe(data => {
+        console.log('Batch data:', data);
+        this.chartData2.labels = data.map(item => item.batch);
+        this.chartData2.datasets[0].data = data.map(item => item.total);
+
+        this.loading=false;
+
+      });
+
+      this.loading=true;
+    
+      this.dataUnsub3 = this.equipmentService.getFundSourceStats(this.schoolID).subscribe(data => {
+        console.log('Funds data:', data);
+        this.chartData3.labels = data.map(item => item.fundsource);
+        this.chartData3.datasets[0].data = data.map(item => item.total);
+
+        this.loading=false;
+
+      });
+
     }
 
      ngOnDestroy(): void {
