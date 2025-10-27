@@ -534,7 +534,8 @@ export class Statistics implements OnInit, OnDestroy {
     onSelectInput(value: string) {
 
       if(this.selectedGroup === 'area'){
-        // this.loading=true;
+        this.loading=true;
+
         //UPPER STAT FIRST ROW
          this.equipmentService.getStatsByArea(value).subscribe(data => {
           this.condemnCountAll = data.find(d => d.status === 'For Disposal')?.total || 0;
@@ -588,6 +589,7 @@ export class Statistics implements OnInit, OnDestroy {
           // this.loading=false;
 
         });
+        this.loading = false;
 
         
 
@@ -596,7 +598,7 @@ export class Statistics implements OnInit, OnDestroy {
 
       }else if (this.selectedGroup === 'district'){
 
-        // this.loading=true;
+        this.loading=true;
         //UPPER STAT FIRST ROW
         this.equipmentService.getStatsByDistrict(value).subscribe(data => {
           this.condemnCountAll = data.find(d => d.status === 'For Disposal')?.total || 0;
@@ -647,18 +649,12 @@ export class Statistics implements OnInit, OnDestroy {
           console.log('Funds data:', data);
           this.chartData6.labels = data.map(item => item.fundsource);
           this.chartData6.datasets[0].data = data.map(item => item.total);
-
           // this.loading=false;
-
         });
 
-
-
+        this.loading =false;
 
       }
-
-
-
       console.log('Selected option:', value);
     }
 
