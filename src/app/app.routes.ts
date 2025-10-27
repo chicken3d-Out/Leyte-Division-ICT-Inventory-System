@@ -16,20 +16,20 @@ export const routes: Routes = [
         component: Dashboard, canActivate: [authguardGuard],
         children: [
         { path: 'statistics',
-            loadChildren: () =>
+            loadComponent: () =>
                 import('./pages/statistics/statistics').then(m => m.Statistics)
         },
         { path: 'intercon',
-            loadChildren: () =>
+            loadComponent: () =>
                 import('./pages/internetcon/internetcon').then(m => m.Internetcon)
         },
         { path: 'inventory', 
-            loadChildren: () =>
+            loadComponent: () =>
                 import('./pages/inventory/inventory').then(m => m.Inventory)
          },
         { path: 'inventory/:id', component: Inventory },
         { path: 'profile', 
-            loadChildren: () =>
+            loadComponent: () =>
                 import('./pages/profile/profile').then(m => m.Profile)
         },
         ],
