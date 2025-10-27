@@ -534,7 +534,7 @@ export class Statistics implements OnInit, OnDestroy {
     onSelectInput(value: string) {
 
       if(this.selectedGroup === 'area'){
-        this.loading=true;
+        // this.loading=true;
         //UPPER STAT FIRST ROW
          this.equipStat = this.equipmentService.getStatsByArea(value).subscribe(data => {
           this.condemnCountAll = data.find(d => d.status === 'For Disposal')?.total || 0;
@@ -542,50 +542,50 @@ export class Statistics implements OnInit, OnDestroy {
           this.functionalCountAll = data.find(d => d.status === 'Functional')?.total || 0;
           this.nonfunctionalCountAll = data.find(d => d.status === 'Non-Functional')?.total || 0;
 
-          this.loading=false;
+          // this.loading=false;
 
           // this.cdr.markForCheck(); // force Angular to detect changes
         })
 
         this.equipPurpose = this.equipmentService.getPurposeByArea(value).subscribe(data => {
 
-          this.loading=true;
+          // this.loading=true;
           this.academicTotalAll = data.find((d: any) => d.purpose === 'Academic Use')?.total || 0;
           this.administrativeTotalAll = data.find((d: any) => d.purpose === 'Administrative Use')?.total || 0;
 
-          this.loading=false;
+          // this.loading=false;
         });
 
         //EQUIPMENT TYPE
 
         this.dataUnsub4 = this.equipmentService.getEquipmentByArea(value).subscribe(data => {
 
-          this.loading=true;
+          // this.loading=true;
           this.chartData4.labels = data.map(item => item.equipment);
           this.chartData4.datasets[0].data = data.map(item => item.total);
 
-          this.loading=false;
+          // this.loading=false;
 
         });
 
 
         this.dataUnsub5 = this.equipmentService.getDcpBatchByArea(value).subscribe(data => {
-          this.loading=true;
+          // this.loading=true;
           // console.log('Batch data:', data);
           this.chartData5.labels = data.map(item => item.batch);
           this.chartData5.datasets[0].data = data.map(item => item.total);
-          this.loading=false;
+          // this.loading=false;
 
         });
 
         this.dataUnsub6 = this.equipmentService.getFundSourceByArea(value).subscribe(data => {
 
-          this.loading=true;
+          // this.loading=true;
           // console.log('Funds data:', data);
           this.chartData6.labels = data.map(item => item.fundsource);
           this.chartData6.datasets[0].data = data.map(item => item.total);
 
-          this.loading=false;
+          // this.loading=false;
 
         });
 
@@ -596,7 +596,7 @@ export class Statistics implements OnInit, OnDestroy {
 
       }else if (this.selectedGroup === 'district'){
 
-        this.loading=true;
+        // this.loading=true;
         //UPPER STAT FIRST ROW
         this. equipStatDist = this.equipmentService.getStatsByDistrict(value).subscribe(data => {
           this.condemnCountAll = data.find(d => d.status === 'For Disposal')?.total || 0;
@@ -604,51 +604,51 @@ export class Statistics implements OnInit, OnDestroy {
           this.functionalCountAll = data.find(d => d.status === 'Functional')?.total || 0;
           this.nonfunctionalCountAll = data.find(d => d.status === 'Non-Functional')?.total || 0;
 
-          this.loading=false;
+          // this.loading=false;
 
           // this.cdr.markForCheck(); // force Angular to detect changes
         })
 
         this.getPurpDist = this.equipmentService.getPurposeByDistrict(value).subscribe(data => {
 
-          this.loading=true;
+          // this.loading=true;
           this.academicTotalAll = data.find((d: any) => d.purpose === 'Academic Use')?.total || 0;
           this.administrativeTotalAll = data.find((d: any) => d.purpose === 'Administrative Use')?.total || 0;
 
-          this.loading=false;
+          // this.loading=false;
         });
 
 
         //GET EQUIPMENT TYPE BY DISTRICT
         this.dataUnsub4 = this.equipmentService.getEquipmentByDistrict(value).subscribe(data => {
-          this.loading=true;
+          // this.loading=true;
           this.chartData4.labels = data.map(item => item.equipment);
           this.chartData4.datasets[0].data = data.map(item => item.total);
-          this.loading=false;
+          // this.loading=false;
 
         });
 
 
         this.dataUnsub5 = this.equipmentService.getDcpBatchByDistrict(value).subscribe(data => {
 
-          this.loading=true;
+          // this.loading=true;
           
           this.chartData5.labels = data.map(item => item.batch);
           this.chartData5.datasets[0].data = data.map(item => item.total);
 
-          this.loading=false;
+          // this.loading=false;
 
         });
 
 
         this.dataUnsub6 = this.equipmentService.getFundSourceByDistrict(value).subscribe(data => {
 
-          this.loading=true;
+          // this.loading=true;
           console.log('Funds data:', data);
           this.chartData6.labels = data.map(item => item.fundsource);
           this.chartData6.datasets[0].data = data.map(item => item.total);
 
-          this.loading=false;
+          // this.loading=false;
 
         });
 
