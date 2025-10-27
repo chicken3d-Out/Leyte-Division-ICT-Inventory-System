@@ -21,6 +21,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-profile',
+  standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatCardModule, MatIconModule,
     MatOption, MatAutocompleteModule, MatProgressSpinnerModule, MatProgressBarModule
   ],

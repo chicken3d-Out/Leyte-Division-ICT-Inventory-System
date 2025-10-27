@@ -35,6 +35,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-inventory',
+  standalone: true,
   imports: [MatCardModule, MatExpansionModule,MatFormFieldModule,MatButtonModule,MatDatepickerModule,MatIconModule,MatInputModule, CommonModule, ReactiveFormsModule
     ,MatTableModule, MatPaginatorModule,MatSortModule, RouterModule, MatOptionModule, MatAutocompleteModule, MatDatepickerModule, MatProgressSpinnerModule, MatProgressBarModule
    ],

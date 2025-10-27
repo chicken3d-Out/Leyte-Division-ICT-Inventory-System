@@ -113,7 +113,7 @@ export class Equipments {
 
 
   getEquipmentByArea(area: string): Observable<any[]> {
-  return this.http.get<any[]>(`${this.baseUrl}/get-equipment-by-area.php`, {
+  return this.http.get<any[]>(`${this.baseUrl}/get-equipment-type-area.php`, {
     params: { area }
   });
 }
@@ -126,7 +126,7 @@ export class Equipments {
 
 
   getDcpBatchByArea(area: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/get-dcp-batch-by-area.php`, {
+    return this.http.get<any[]>(`${this.baseUrl}/get-dcpbatch-by-area.php`, {
       params: { area }
     });
   }

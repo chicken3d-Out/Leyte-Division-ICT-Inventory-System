@@ -13,13 +13,25 @@ export const routes: Routes = [
     { path: 'login', component: Login },
     {
         path: '',
-        component: Dashboard,
+        component: Dashboard, canActivate: [authguardGuard],
         children: [
-        { path: 'statistics', component: Statistics },
-        { path: 'intercon', component: Internetcon },
-        { path: 'inventory', component: Inventory },
+        { path: 'statistics',
+            loadChildren: () =>
+                import('./pages/statistics/statistics').then(m => m.Statistics)
+        },
+        { path: 'intercon',
+            loadChildren: () =>
+                import('./pages/internetcon/internetcon').then(m => m.Internetcon)
+        },
+        { path: 'inventory', 
+            loadChildren: () =>
+                import('./pages/inventory/inventory').then(m => m.Inventory)
+         },
         { path: 'inventory/:id', component: Inventory },
-        { path: 'profile', component: Profile },
+        { path: 'profile', 
+            loadChildren: () =>
+                import('./pages/profile/profile').then(m => m.Profile)
+        },
         ],
     },
     { path: '**', redirectTo: 'login' }, // optional fallback
