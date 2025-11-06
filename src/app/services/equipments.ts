@@ -119,7 +119,7 @@ export class Equipments {
 }
 
   getEquipmentByDistrict(district: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/get-equipment-by-district.php`, {
+    return this.http.get<any[]>(`${this.baseUrl}/get-equipment-type-district.php`, {
       params: { district }
     });
   }
@@ -132,7 +132,7 @@ export class Equipments {
   }
 
   getDcpBatchByDistrict(district: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/get-dcp-batch-by-district.php`, {
+    return this.http.get<any[]>(`${this.baseUrl}/get-dcpbatch-by-district.php`, {
       params: { district }
     });
   }

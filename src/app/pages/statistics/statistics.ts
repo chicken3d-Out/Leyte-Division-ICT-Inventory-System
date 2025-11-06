@@ -356,7 +356,7 @@ export class Statistics implements OnInit, OnDestroy {
 
       // this.loading=true;
     
-      this.dataUnsub3 = this.equipmentService.getFundSourceStats(this.schoolID).subscribe(data => {
+      this.dataUnsub3 = this.equipmentService.getFundSourceStats(validSchoolID).subscribe(data => {
         console.log('Funds data:', data);
         this.chartData3.labels = data.map(item => item.fundsource);
         this.chartData3.datasets[0].data = data.map(item => item.total);
