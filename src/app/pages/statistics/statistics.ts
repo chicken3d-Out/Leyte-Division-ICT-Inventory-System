@@ -365,6 +365,8 @@ export class Statistics implements OnInit, OnDestroy {
 
       });
 
+      this.loading=false;
+
     }
 
      ngOnDestroy(): void {
