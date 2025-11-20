@@ -194,7 +194,7 @@ export class Inventory implements AfterViewInit {
             this.equipment.deleteEquipment(id).subscribe(res => {
               console.log('Row Deleted', res);
     
-                this.snackBar.open('Row Deleted Successfully!', 'Close', {
+                this.snackBar.open('Equipment Deleted Successfully!', 'Close', {
                     duration: 4000,              // auto close after 3s
                     horizontalPosition: 'center', // 'start' | 'center' | 'end' | 'left' | 'right'
                     verticalPosition: 'bottom',      // 'top' | 'bottom'
